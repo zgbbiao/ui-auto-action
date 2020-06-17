@@ -1,0 +1,144 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-02 15:57:41
+ * @LastEditTime: 2020-06-14 20:37:23
+ * @LastEditors: Please set LastEditors
+ */
+export interface State {
+  collapseActiveKeyLeftAside: string
+  layoutComponentList: Array<any>
+  isToolbarsTop: boolean
+  isShowHead: boolean
+  isHideModel: boolean
+  tagPanelType: any,
+  curPanelSelectTag: object,
+  insertAllowedType: Array<any>
+  noModel: Array<any>
+  selectTagList: Array<any>
+  // total: number;
+  // isLogin: boolean;
+  // postList: object[];
+}
+export const state: State = {
+  collapseActiveKeyLeftAside: '1',
+  layoutComponentList: [
+    {
+        type: 'div',
+        // 表单类型
+        label: 'div标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'div'
+      }
+    },
+    {
+        type: 'a',
+        // 表单类型
+        label: 'a标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'a'
+      }
+    },
+    {
+        type: 'p',
+        // 表单类型
+        label: 'p标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'p'
+      }
+    },
+    {
+        type: 'i',
+        // 表单类型
+        label: 'i标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'i'
+      }
+    },
+    {
+        type: 'img',
+        // 表单类型
+        label: 'img标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'img'
+      }
+    },
+    {
+        type: 'span',
+        // 表单类型
+        label: 'span标签',
+        // 标题文字
+        icon: 'icon-write',
+        model: '',
+        // 数据字段
+        key: '',
+      options: {
+        name: 'span'
+      }
+    }
+  ],
+  isToolbarsTop: false,
+  isShowHead: false,
+  isHideModel: false,
+  tagPanelType: '',
+  curPanelSelectTag: {
+    key: ''
+  },
+  insertAllowedType: [
+    'input',
+    'textarea',
+    'number',
+    'select',
+    'checkbox',
+    'radio',
+    'date',
+    'time',
+    'rate',
+    'slider',
+    'uploadFile',
+    'uploadImg',
+    'cascader',
+    'treeSelect',
+    'switch',
+    'text',
+    'html'
+  ],
+  noModel: [
+    'button',
+    'divider',
+    'card',
+    'grid',
+    'table',
+    'alert',
+    'text',
+    'html'
+  ],
+  selectTagList: []
+}
+
+export default state
