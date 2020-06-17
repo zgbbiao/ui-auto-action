@@ -3,7 +3,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:10:00
- * @LastEditTime: 2020-06-08 18:12:03
+ * @LastEditTime: 2020-06-17 14:10:39
  * @LastEditors: Please set LastEditors
  */
 // "useTabs": false,
@@ -66,7 +66,7 @@ for (const page in pages) {
       filename: page === 'index' ? `${page}.html` : `${page}/index.html`,
       // 当使用 title 选项时，
       // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-      title: '权限中心',
+      title: '百度一下',
       // 在这个页面中包含的块，默认情况下会包含
       // 提取出来的通用 chunk 和 vendor chunk。
       chunks: ['chunk-vendors', 'chunk-common', page]

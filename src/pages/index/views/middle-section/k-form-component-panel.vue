@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-14 18:11:17
+ * @LastEditTime: 2020-06-17 15:40:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -13,6 +13,7 @@
         从左侧选择控件添加
       </p>
     </div>
+    {{ list }}
     <div class="a-form-box k-form-build">
       <draggable
         tag="div"
@@ -27,19 +28,21 @@
         @add="deepClone"
         @start="dragStart($event, list)"
       >
-        <transition-group tag="div" name="list" class="list-main">
-          <layoutItem
-            class="drag-move"
-            v-for="record in list"
-            :key="record.key"
-            :record="record"
-            @dragStart="dragStart"
-            @handleSelectItem="handleSelectItem"
-            @handleCopy="handleCopy"
-            @handleDetele="handleDetele"
-            @handleColAdd="handleColAdd"
-          />
-        </transition-group>
+        <div class="panel-tag-coniner">
+          <transition-group tag="div" name="list" class="list-main">
+            <layoutItem
+              class="drag-move"
+              v-for="record in list"
+              :key="record.key"
+              :record="record"
+              @dragStart="dragStart"
+              @handleSelectItem="handleSelectItem"
+              @handleCopy="handleCopy"
+              @handleDetele="handleDetele"
+              @handleColAdd="handleColAdd"
+            />
+          </transition-group>
+        </div>
       </draggable>
     </div>
   </div>
@@ -112,6 +115,7 @@ export default class KFormComponentPanel extends Vue {
     traverse(this['list'])
   }
   handleColAdd(evt, columns, isCopy = false) {
+    console.log('middle-section-add')
     // 重置或者生成key值
     const newIndex = evt.newIndex
     const key = columns[newIndex].type + '_' + new Date().getTime()

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-14 20:37:36
+ * @LastEditTime: 2020-06-17 15:40:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -94,7 +94,7 @@ export default class PageIndexLeftAside extends Vue {
     console.log('handleListPush', item)
     // 双击控件按钮push到list
     // 生成key值
-    if (!this['curPanelSelectTag'].key) {
+    if (this['curPanelSelectTag'].key !== item.key) {
       // 在没有选择表单时，将数据push到this.data.list
       const key = item.type + '_' + new Date().getTime()
       item = {

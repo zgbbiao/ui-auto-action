@@ -1,51 +1,33 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-15 13:18:19
+ * @LastEditTime: 2020-06-17 14:37:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
-  <div
-    class="grid-box"
-    :class="{ active: record.key === curPanelSelectTag.key }"
-    @click.stop="handleSelectItem(record)"
+  <draggable
+    tag="div"
+    class="draggable-box"
+    v-bind="{
+      group: 'form-draggable',
+      ghostClass: 'moving',
+      animation: 180,
+      handle: '.drag-move'
+    }"
+    v-model="record.children"
+    @start="dragStart"
+    @add="handleColAdd"
   >
-    <draggable
-      tag="div"
-      class="draggable-box"
-      v-bind="{
-        group: 'form-draggable',
-        ghostClass: 'moving',
-        animation: 180,
-        handle: '.drag-move'
-      }"
-      v-model="record.children"
-      @start="dragStart"
-      @add="handleColAdd"
-    >
-      <!-- $emit('dragStart', $event, record.children) -->
-      <!-- $emit('handleColAdd', $event, record.children) -->
+    <!-- $emit('dragStart', $event, record.children) -->
+    <!-- $emit('handleColAdd', $event, record.children) -->
+    <div class="panel-tag-coniner">
       <transition-group tag="div" name="list" class="list-main">
         <slot></slot>
       </transition-group>
-    </draggable>
-    <div
-      class="copy"
-      :class="record.key === curPanelSelectTag.key ? 'active' : 'unactivated'"
-      @click.stop="$emit('handleCopy')"
-    >
-      <a-icon type="copy" />
     </div>
-    <div
-      class="delete"
-      :class="record.key === curPanelSelectTag.key ? 'active' : 'unactivated'"
-      @click.stop="$emit('handleDetele')"
-    >
-      <a-icon type="delete" />
-    </div>
-  </div>
+  </draggable>
 </template>
 <script lang="ts">
 import bemMixins from '@/mixins/bem'
