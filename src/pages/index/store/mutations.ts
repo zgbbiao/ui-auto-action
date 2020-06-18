@@ -20,4 +20,7 @@ export default {
   [types.SET_TAG_SELECTED_LIST](state: State, data: any) {
     state.selectTagList = data
   },
+  [types.SET_TAG_KEY_NEW_SELECT](state: State, data: any) {
+    state.tagKeyNewSelect = data
+  }
 }

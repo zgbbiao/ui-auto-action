@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-17 14:37:34
+ * @LastEditTime: 2020-06-18 18:55:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -11,12 +11,16 @@
     tag="div"
     class="draggable-box"
     v-bind="{
-      group: 'form-draggable',
+      group: {
+        name: 'form-draggable',
+        // pull: 'clone',
+        pull: true,
+        put: true
+      },
       ghostClass: 'moving',
       animation: 180,
       handle: '.drag-move'
     }"
-    v-model="record.children"
     @start="dragStart"
     @add="handleColAdd"
   >
@@ -24,6 +28,7 @@
     <!-- $emit('handleColAdd', $event, record.children) -->
     <div class="panel-tag-coniner">
       <transition-group tag="div" name="list" class="list-main">
+        sdf
         <slot></slot>
       </transition-group>
     </div>

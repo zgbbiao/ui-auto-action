@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-17 17:41:18
+ * @LastEditTime: 2020-06-18 18:03:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -19,10 +19,11 @@
       }"
       @start="handleStart($event, list)"
     >
-      <li v-for="(val, index) in list" :key="index">
-        <!--       
+      <li
+        v-for="(val, index) in list"
+        :key="index"
         @dragstart="$emit('generateKey', list, index)"
-        @click="$emit('handleListPush', val)" -->
+      >
         <svg v-if="val.icon" class="icon" aria-hidden="true">
           <use :xlink:href="`#${val.icon}`"></use>
         </svg>
@@ -55,7 +56,7 @@ export default class PageIndexCollapseitem extends Vue {
   @Prop({ default: [] })
   list!: Array<any>
   handleStart(e, list) {
-    // this.$emit('start', list[e.oldIndex].type)
+    this.$emit('start', list[e.oldIndex].type)
   }
   handleDraggableClone(...arg) {
     // console.log(arg)

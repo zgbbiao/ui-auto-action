@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-17 15:40:37
+ * @LastEditTime: 2020-06-18 18:51:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -19,10 +19,14 @@
         tag="div"
         class="draggable-box"
         v-bind="{
-          group: 'form-draggable',
+          group: {
+            name: 'form-draggable',
+            // pull: 'clone',
+            pull: true,
+            put: true
+          },
           ghostClass: 'moving',
-          animation: 180,
-          handle: '.drag-move'
+          animation: 180
         }"
         v-model="list"
         @add="deepClone"
@@ -52,6 +56,7 @@ import draggable from 'vuedraggable'
 import tagSelectMixins from '@/pages/index/mixins/part/tag-select'
 import bemMixins from '@/mixins/bem'
 import layoutItem from './layout-item.vue'
+import { namespace } from 'vuex-class'
 import {
   Component,
   // Emit,
@@ -62,6 +67,7 @@ import {
   Vue
   // Watch
 } from 'vue-property-decorator'
+const vuexIndexModule = namespace('index')
 @Component({
   name: 'KFormComponentPanel',
   mixins: [bemMixins, tagSelectMixins],
@@ -71,18 +77,15 @@ import {
   }
 })
 export default class KFormComponentPanel extends Vue {
+  @vuexIndexModule.State(state => state.tagKeyNewSelect) tagKeyNewSelect
+  @vuexIndexModule.Getter('findDeepItem') findDeepItem
   @Prop({ default: [] })
   list!: Array<any>
   deepClone(evt) {
-    console.log(evt)
-    const newIndex = evt.newIndex
-    // json深拷贝一次
-    const listString = JSON.stringify(this['list'])
-    const list = JSON.parse(listString)
-    // 删除icon及compoent属性
-    delete list[newIndex].icon
-    delete list[newIndex].component
-    this.$emit('handleSetSelectItem', list[newIndex])
+    const list = JSON.parse(JSON.stringify(this['list']))
+    // 查找指定内容
+    const obj = this['findDeepItem'](list, this['tagKeyNewSelect'])
+    this.$emit('handleSetSelectItem', obj)
   }
   dragStart(evt, list) {
     // 拖拽结束,自动选择拖拽的控件项

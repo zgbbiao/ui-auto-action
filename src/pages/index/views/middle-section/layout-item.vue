@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-15 13:13:07
+ * @LastEditTime: 2020-06-18 18:54:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -42,6 +42,7 @@
             @handleDetele="$emit('handleDetele')"
             @handleColAdd="$emit('handleColAdd')"
           >
+            ddd
           </DeepNode>
         </formNode>
       </template>

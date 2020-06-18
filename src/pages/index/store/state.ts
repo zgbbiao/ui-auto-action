@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-02 15:57:41
- * @LastEditTime: 2020-06-14 20:37:23
+ * @LastEditTime: 2020-06-18 15:14:27
  * @LastEditors: Please set LastEditors
  */
 export interface State {
@@ -16,6 +16,7 @@ export interface State {
   insertAllowedType: Array<any>
   noModel: Array<any>
   selectTagList: Array<any>
+  tagKeyNewSelect: any
   // total: number;
   // isLogin: boolean;
   // postList: object[];
@@ -138,7 +139,8 @@ export const state: State = {
     'text',
     'html'
   ],
-  selectTagList: []
+  selectTagList: [],
+  tagKeyNewSelect: ''
 }
 
 export default state
