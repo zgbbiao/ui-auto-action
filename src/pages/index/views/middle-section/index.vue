@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-14 17:59:27
+ * @LastEditTime: 2020-06-19 13:48:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -12,8 +12,8 @@
     <k-form-component-panel
       :class="{ 'no-toolbars-top': !isToolbarsTop }"
       :list="selectTagList"
+      @input="onChangeValue"
       ref="KFCP"
-      @handleSetSelectItem="handleSetSelectItem"
     />
     <!-- 操作区域 start -->
   </div>
@@ -46,6 +46,9 @@ const vuexIndexModule = namespace('index')
 export default class PageIndexMiddleSection extends Vue {
   @vuexIndexModule.State('isToolbarsTop')
   isToolbarsTop!: boolean
+  onChangeValue(newVal: any) {
+    this['setTagSelectList'](newVal)
+  }
 }
 </script>
 

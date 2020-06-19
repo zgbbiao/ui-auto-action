@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-18 18:08:53
+ * @LastEditTime: 2020-06-19 18:25:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -79,17 +79,17 @@ export default class PageIndexLeftAside extends Vue {
   }
   generateKey(list, index) {
     // 生成key值
-    const key = list[index].type + '_' + new Date().getTime()
-    this.$set(list, index, {
-      ...list[index],
-      key,
-      model: key
-    })
-    this['setTagKeyNewSelect'](key)
-    if (this['noModel'].includes(list[index].type)) {
-      // 删除不需要的model属性
-      delete list[index].model
-    }
+    // const key = list[index].type + '_' + new Date().getTime()
+    // this.$set(list, index, {
+    //   ...list[index],
+    //   key,
+    //   model: key
+    // })
+    // this['setTagKeyNewSelect'](key)
+    // if (this['noModel'].includes(list[index].type)) {
+    //   // 删除不需要的model属性
+    //   delete list[index].model
+    // }
   }
   // handleListPush(item) {
   //   console.log('handleListPush', item)

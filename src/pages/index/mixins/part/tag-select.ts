@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-14 15:47:17
- * @LastEditTime: 2020-06-14 17:44:54
+ * @LastEditTime: 2020-06-19 13:50:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\mixins\part\tag-select.ts
@@ -20,11 +20,12 @@ const vuexIndexModule = namespace('index')
 export default class Bem extends Vue {
   @vuexIndexModule.Action('setTagPanelType') setTagPanelType
   @vuexIndexModule.Action('setTagPanelCurSelect') setTagPanelCurSelect
+  @vuexIndexModule.Action('setTagSelectList') setTagSelectList
   @vuexIndexModule.State(state => state.curPanelSelectTag) curPanelSelectTag
   @vuexIndexModule.State(state => state.isHideModel) isHideModel
   @vuexIndexModule.State('selectTagList') selectTagList
   @vuexIndexModule.State('noModel') noModel
-  handleSetSelectItem(record) {
+  handleSaveSetSelectItem(record) {
     // 操作间隔不能低于100毫秒
     const newTime = new Date().getTime()
     if (newTime - this['updateTime'] < 100) {

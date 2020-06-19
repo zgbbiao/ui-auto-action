@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-14 19:29:32
+ * @LastEditTime: 2020-06-19 11:28:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -274,24 +274,9 @@ export default class PageIndexContent extends Vue {
             height: calc(100% - 50px);
           }
 
-          > .hint-text {
-            position: absolute;
-            left: 0;
-            top: 45%;
-            width: 100%;
-            text-align: center;
-            font-size: 20px;
-            color: #aaa;
-            z-index: 16;
-          }
-
-          .a-form-box {
-            height: 100%;
-            // box-shadow: 0px 1px 5px 1px #ccc;
-          }
-
           .draggable-box {
             height: 100%;
+            min-height: 60px;
             overflow: auto;
 
             .list-main {
@@ -434,39 +419,6 @@ export default class PageIndexContent extends Vue {
                   background: @layout-hover-bg-color;
                   outline-offset: 0;
                 }
-
-                > .copy,
-                > .delete {
-                  position: absolute;
-                  top: 0px;
-                  width: 30px;
-                  height: 30px;
-                  line-height: 30px;
-                  text-align: center;
-                  color: #fff;
-                  z-index: 989;
-                  transition: all 0.3s;
-
-                  &.unactivated {
-                    opacity: 0 !important;
-                    pointer-events: none;
-                  }
-
-                  &.active {
-                    opacity: 1 !important;
-                  }
-                }
-
-                > .copy {
-                  border-radius: 0 0 0 8px;
-                  right: 30px;
-                  background: @layout-color;
-                }
-
-                > .delete {
-                  right: 0px;
-                  background: @layout-color;
-                }
               }
             }
           }
@@ -484,106 +436,6 @@ export default class PageIndexContent extends Vue {
 
   .layout-width {
     width: 100%;
-  }
-}
-.drag-move-box {
-  position: relative;
-  box-sizing: border-box;
-  padding: 8px;
-  overflow: hidden;
-  transition: all 0.3s;
-  min-height: 36px;
-
-  &:hover {
-    background: @primary-hover-bg-color;
-  }
-
-  // 选择时 start
-  &::before {
-    content: '';
-    height: 5px;
-    width: 100%;
-    background: @primary-color;
-    position: absolute;
-    top: 0;
-    right: -100%;
-    transition: all 0.3s;
-  }
-
-  &.active {
-    &::before {
-      right: 0;
-    }
-
-    background: @primary-hover-bg-color;
-    outline-offset: 0;
-  }
-
-  // 选择时 end
-  .form-item-box {
-    position: relative;
-    box-sizing: border-box;
-    word-wrap: break-word;
-
-    &::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 888;
-    }
-
-    .ant-form-item {
-      // 修改ant form-item的margin为padding
-      margin: 0;
-      padding-bottom: 6px;
-    }
-  }
-
-  .show-key-box {
-    // 显示key
-    position: absolute;
-    bottom: 2px;
-    right: 5px;
-    font-size: 14px;
-    z-index: 987;
-    color: @primary-color;
-  }
-
-  > .copy,
-  > .delete {
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    color: #fff;
-    z-index: 989;
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &.unactivated {
-      opacity: 0 !important;
-      pointer-events: none;
-    }
-
-    &.active {
-      opacity: 1 !important;
-    }
-  }
-
-  > .copy {
-    border-radius: 0 0 0 8px;
-    right: 30px;
-    background: @primary-color;
-  }
-
-  > .delete {
-    right: 0px;
-    background: @primary-color;
   }
 }
 </style>

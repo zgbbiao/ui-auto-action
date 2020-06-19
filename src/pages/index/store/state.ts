@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-02 15:57:41
- * @LastEditTime: 2020-06-18 15:14:27
+ * @LastEditTime: 2020-06-19 18:01:17
  * @LastEditors: Please set LastEditors
  */
 export interface State {
@@ -35,7 +35,8 @@ export const state: State = {
         key: '',
       options: {
         name: 'div'
-      }
+      },
+      tasks: []
     },
     {
         type: 'a',
