@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 18:26:19
- * @LastEditTime: 2020-06-14 18:04:33
+ * @LastEditTime: 2020-07-07 01:47:35
  * @LastEditors: Please set LastEditors
  */
 import types from './mutation-types'
@@ -22,5 +22,8 @@ export default {
   },
   [types.SET_TAG_KEY_NEW_SELECT](state: State, data: any) {
     state.tagKeyNewSelect = data
-  }
+  },
+  [types.SET_COMPONENT_UPDATE_TIME](state: State, data: any) {
+    state.compomentUpdateTime = data
+  },
 }

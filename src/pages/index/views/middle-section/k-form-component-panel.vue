@@ -55,7 +55,7 @@ export default class KFormComponentPanel extends Vue {
 }
 
 .a-form-box {
-  height: 100%;
+  height: 100vh;
   // box-shadow: 0px 1px 5px 1px #ccc;
   position: absolute;
   z-index: 8;

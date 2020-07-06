@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:09:59
- * @LastEditTime: 2020-06-18 15:18:04
+ * @LastEditTime: 2020-07-07 01:47:05
  * @LastEditors: Please set LastEditors
  */
 import { Commit } from 'vuex';
@@ -25,5 +25,8 @@ export default {
   // 保存新点击准备新增的组件的key
   setTagKeyNewSelect(context: { commit: Commit }, params: any) {
     context.commit(types.SET_TAG_KEY_NEW_SELECT, params);
-  }
+  },
+  setComponentUpdateTime(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_COMPONENT_UPDATE_TIME, params);
+  },
 }

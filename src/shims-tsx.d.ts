@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-06-08 11:18:27
- * @LastEditTime: 2020-06-08 19:03:28
- * @LastEditors: your name
+ * @LastEditTime: 2020-07-07 01:27:37
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\shims-tsx.d.ts
  */
@@ -17,6 +17,7 @@ declare global {
     interface ElementClass extends Vue {}
     interface IntrinsicElements {
       [elem: string]: any
+      object: object
     }
   }
 }

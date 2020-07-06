@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-19 17:37:04
+ * @LastEditTime: 2020-07-07 00:45:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -14,9 +14,9 @@
       :class="{ active: record.key === curPanelSelectTag.key }"
     >
       <div class="form-item-box">
-        <!-- <expandRender :options="record.options">
+        <expandRender :options="record.options">
           <slot />
-        </expandRender> -->
+        </expandRender>
       </div>
       <div v-if="!isHideModel" class="show-key-box" v-text="record.model" />
       <div
