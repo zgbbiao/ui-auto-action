@@ -1,16 +1,19 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-14 16:48:47
+ * @LastEditTime: 2020-07-09 22:55:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
-  <div :class="b('wrapper', ['wrapper'])"></div>
+  <div :class="b('wrapper', ['wrapper'])">
+    <tabs></tabs>
+  </div>
 </template>
 <script lang="ts">
 import bemMixins from '@/mixins/bem'
+import tabs from './tabs/index.vue'
 import {
   Component,
   // Emit,
@@ -23,7 +26,9 @@ import {
 @Component({
   name: 'PageIndexRightAside',
   mixins: [bemMixins],
-  components: {}
+  components: {
+    tabs
+  }
 })
 export default class PageIndexRightAside extends Vue {}
 </script>
@@ -32,6 +37,7 @@ export default class PageIndexRightAside extends Vue {}
 .PageIndexRightAside {
   &__wrapper {
     &--wrapper {
+      overflow: hidden;
     }
   }
 }
