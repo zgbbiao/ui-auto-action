@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-07 01:51:32
+ * @LastEditTime: 2020-07-07 14:09:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -59,7 +59,9 @@ export default class KFormComponentPanel extends Vue {
   @Prop({ default: [] })
   tasks
   @vuexIndexModule.State(state => state.compomentUpdateTime) compomentUpdateTime
+  @vuexIndexModule.State(state => state.componentCountId) componentCountId
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
+  @vuexIndexModule.Action('setComponentCountId') setComponentCountId
   handleInput(value) {
     console.log('handleInput')
     const curTime = new Date().getTime()
@@ -69,7 +71,21 @@ export default class KFormComponentPanel extends Vue {
       return false
     }
     myconsole(value)
-    this.$emit('input', JSON.parse(JSON.stringify(value)))
+    this.$emit(
+      'input',
+      JSON.parse(
+        JSON.stringify(
+          value.map(element => {
+            if (typeof element === 'object' && !element.key) {
+              const countId = this['componentCountId'] + 1
+              element.key = `countid_${countId}`
+              this['setComponentCountId'](countId)
+            }
+            return element
+          })
+        )
+      )
+    )
   }
   handleNested(val, index) {
     console.log('handleNested', index)

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-07 00:45:35
+ * @LastEditTime: 2020-07-07 13:19:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -10,7 +10,7 @@
   <div :class="b('wrapper', ['wrapper'])">
     <div
       class="drag-move-box"
-      @click.stop="$emit('handleSelectItem', record)"
+      @click.stop="handleSelectItem"
       :class="{ active: record.key === curPanelSelectTag.key }"
     >
       <div class="form-item-box">
@@ -40,6 +40,7 @@
 import bemMixins from '@/mixins/bem'
 import tagSelectMixins from '@/pages/index/mixins/part/tag-select'
 import expandRender from '@/components/expand/index.js'
+import { namespace } from 'vuex-class'
 import {
   Component,
   // Emit,
@@ -50,6 +51,7 @@ import {
   Vue
   // Watch
 } from 'vue-property-decorator'
+const vuexIndexModule = namespace('index')
 @Component({
   name: 'PageIndexFormNode',
   mixins: [bemMixins, tagSelectMixins],
@@ -58,8 +60,13 @@ import {
   }
 })
 export default class PageIndexFormNode extends Vue {
+  @vuexIndexModule.State(state => state.curPanelSelectTag) curPanelSelectTag
+  @vuexIndexModule.Action('setTagPanelCurSelect') setTagPanelCurSelect
   @Prop({ default: {} })
   record: any
+  handleSelectItem() {
+    this['setTagPanelCurSelect'](this['record'])
+  }
 }
 </script>
 

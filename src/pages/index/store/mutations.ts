@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 18:26:19
- * @LastEditTime: 2020-07-07 01:47:35
+ * @LastEditTime: 2020-07-07 13:21:54
  * @LastEditors: Please set LastEditors
  */
 import types from './mutation-types'
@@ -25,5 +25,8 @@ export default {
   },
   [types.SET_COMPONENT_UPDATE_TIME](state: State, data: any) {
     state.compomentUpdateTime = data
+  },
+  [types.SET_COMPONENT_COUNT_ID](state: State, data: any) {
+    state.componentCountId = data
   },
 }

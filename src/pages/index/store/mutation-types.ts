@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-02 15:57:41
- * @LastEditTime: 2020-06-18 15:18:28
+ * @LastEditTime: 2020-07-07 13:05:32
  * @LastEditors: Please set LastEditors
  */
 export default {
@@ -11,5 +11,6 @@ export default {
   SET_TAG_PANEL_CUR_SELECT: 'SET_TAG_PANEL_CUR_SELECT',
   SET_TAG_SELECTED_LIST: 'SET_TAG_SELECTED_LIST',
   SET_TAG_KEY_NEW_SELECT: 'SET_TAG_KEY_NEW_SELECT',
-  SET_COMPONENT_UPDATE_TIME: 'SET_COMPONENT_UPDATE_TIME'
+  SET_COMPONENT_UPDATE_TIME: 'SET_COMPONENT_UPDATE_TIME',
+  SET_COMPONENT_COUNT_ID: 'SET_COMPONENT_COUNT_ID'
 }

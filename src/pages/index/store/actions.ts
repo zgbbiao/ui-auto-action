@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:09:59
- * @LastEditTime: 2020-07-07 01:47:05
+ * @LastEditTime: 2020-07-07 13:21:31
  * @LastEditors: Please set LastEditors
  */
 import { Commit } from 'vuex';
@@ -28,5 +28,8 @@ export default {
   },
   setComponentUpdateTime(context: { commit: Commit }, params: any) {
     context.commit(types.SET_COMPONENT_UPDATE_TIME, params);
+  },
+  setComponentCountId(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_COMPONENT_COUNT_ID, params);
   },
 }
