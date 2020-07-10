@@ -16,6 +16,7 @@ export default {
   setTagPanelType(context: { commit: Commit }, params: any) {
     context.commit(types.SET_TAG_PANEL_TYPE, params);
   },
+  // 保存当前选中节点
   setTagPanelCurSelect(context: { commit: Commit }, params: any) {
     context.commit(types.SET_TAG_PANEL_CUR_SELECT, params);
   },

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-07 14:09:13
+ * @LastEditTime: 2020-07-09 10:48:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -62,6 +62,7 @@ export default class KFormComponentPanel extends Vue {
   @vuexIndexModule.State(state => state.componentCountId) componentCountId
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
   @vuexIndexModule.Action('setComponentCountId') setComponentCountId
+  @vuexIndexModule.Action('setTagPanelCurSelect') setTagPanelCurSelect
   handleInput(value) {
     console.log('handleInput')
     const curTime = new Date().getTime()
@@ -71,21 +72,17 @@ export default class KFormComponentPanel extends Vue {
       return false
     }
     myconsole(value)
-    this.$emit(
-      'input',
-      JSON.parse(
-        JSON.stringify(
-          value.map(element => {
-            if (typeof element === 'object' && !element.key) {
-              const countId = this['componentCountId'] + 1
-              element.key = `countid_${countId}`
-              this['setComponentCountId'](countId)
-            }
-            return element
-          })
-        )
-      )
-    )
+    // 设置当前添加节点的key，并保存添加记录数量，
+    const muvalue = JSON.parse(JSON.stringify(value)).map(element => {
+      if (typeof element === 'object' && !element.key) {
+        const countId = this['componentCountId'] + 1
+        element.key = `countid_${countId}`
+        this['setComponentCountId'](countId)
+        this['setTagPanelCurSelect'](element)
+      }
+      return element
+    })
+    this.$emit('input', muvalue)
   }
   handleNested(val, index) {
     console.log('handleNested', index)
