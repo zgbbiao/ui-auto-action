@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-09 10:22:51
+ * @LastEditTime: 2020-07-10 10:11:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -14,37 +14,44 @@
       :tab="pane.title"
       :closable="pane.closable || false"
     >
-      {{ pane.content }}
+      <div :class="b('wrapper', ['concent'])">
+        <template v-if="pane.key === 'label'">
+          <LabelComponent></LabelComponent>
+        </template>
+        <template v-if="pane.key === 'style'">
+          <styleComponent></styleComponent>
+        </template>
+      </div>
     </a-tab-pane>
   </a-tabs>
 </template>
 <script lang="ts">
+import LabelComponent from './label.vue'
+import styleComponent from './style.vue'
 import bemMixins from '@/mixins/bem'
-import {
-  Component,
-  // Emit,
-  // Inject,
-  // Model,
-  // Provide,
-  Vue
-  // Watch
-} from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
+const panes = [
+  { title: '标签', content: '标签详情', key: 'label' },
+  { title: '样式', content: 'Content of Tab 2', key: 'style' },
+  {
+    title: '类样式',
+    content: 'Content of Tab 3',
+    key: 'class',
+    closable: false
+  }
+]
 @Component({
   name: 'PageIndexRightAsideTabs',
   mixins: [bemMixins],
-  components: {},
+  components: {
+    LabelComponent,
+    styleComponent
+  },
   data() {
     return {
-      panes: [
-        { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
-        { title: 'Tab 2', content: 'Content of Tab 2', key: '2' },
-        {
-          title: 'Tab 3',
-          content: 'Content of Tab 3',
-          key: '3'
-        }
-      ],
-      activeKey: '1'
+      activeKey: panes[0].key,
+      panes,
+      newTabIndex: 0
     }
   }
 })
@@ -54,7 +61,10 @@ export default class PageIndexRightAside extends Vue {}
 <style lang="less">
 .PageIndexRightAsideTabs {
   &__wrapper {
-    &--wrapper {
+    &--concent {
+      height: calc(100vh - 96px);
+      overflow-y: scroll;
+      padding-bottom: 40px;
     }
   }
 }

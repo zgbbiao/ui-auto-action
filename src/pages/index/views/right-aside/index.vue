@@ -37,6 +37,7 @@ export default class PageIndexRightAside extends Vue {}
 .PageIndexRightAside {
   &__wrapper {
     &--wrapper {
+      overflow: hidden;
     }
   }
 }
