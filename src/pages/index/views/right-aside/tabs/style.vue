@@ -1,97 +1,167 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-10 00:49:49
+ * @LastEditTime: 2020-07-11 21:43:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
  -->
 <template>
-  <a-form
-    :form="form"
-    :label-col="{ span: 8 }"
-    :wrapper-col="{ span: 16 }"
-    @submit="handleSubmit"
-  >
-    <a-form-item label="字体大小">
-      <a-input
-        v-decorator="[
-          'fontsSize',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item label="字体颜色">
-      <a-input
-        v-decorator="[
-          'fontColor',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item label="字体族">
-      <a-input
-        v-decorator="[
-          'fontFamily',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item label="边框大小">
-      <a-input
-        v-decorator="[
-          'borderSize',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item label="边框颜色">
-      <a-input
-        v-decorator="[
-          'borderColor',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item label="边框线状">
-      <a-input
-        v-decorator="[
-          'borderStyle',
-          { rules: [{ required: true, message: 'Please input your note!' }] }
-        ]"
-      />
-    </a-form-item>
-    <a-form-item
-      label="间距"
-      :label-col="{ span: 6 }"
-      :wrapper-col="{ span: 24 }"
+  <div :key="mardomUpdate">
+    <CommonPageForm
+      ref="CommonPageForm"
+      :form-list="formList"
+      :form-data="formData"
+      :rules="rules"
+      labelWidth="100px"
+      :formItemLayout="formItemLayout"
+      @input="handleFormInput"
     >
-      <CommonStyleBox></CommonStyleBox>
-    </a-form-item>
-    <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-      <a-button type="primary" html-type="submit">
-        保存
-      </a-button>
-    </a-form-item>
-  </a-form>
+      <template v-slot:bj>
+        <CommonStyleBox @change="handleStyleBoxChange"></CommonStyleBox>
+      </template>
+      <template v-slot:code>
+        <CommonTestCodemirror
+          :value="JSON.stringify(formData, null, 2)"
+          @input="handleComedirrorInput"
+        ></CommonTestCodemirror>
+      </template>
+      <!-- CommonTestCodemirror -->
+    </CommonPageForm>
+  </div>
 </template>
 
 <script>
+import CommonPageForm from 'page-form'
+// import inputSelect from '@/components/input-select/_base.vue'
+import dict from '@/dict/index.js'
+// import lodash from 'lodash'
 export default {
+  components: {
+    CommonPageForm
+    // inputSelect
+  },
   data() {
     return {
       formLayout: 'horizontal',
-      form: this.$form.createForm(this, { name: 'coordinated' })
+      form: this.$form.createForm(this, { name: 'coordinated' }),
+      rules: {},
+      formData: {},
+      mardomUpdate: '',
+      formItemLayout: {
+        labelCol: {
+          xs: { span: 0 },
+          sm: { span: 0 }
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 24 }
+        }
+      }
+    }
+  },
+  watch: {
+    formData: {
+      handler(newValue) {
+        const fn = () => {
+          const obj = {}
+          for (const key in newValue) {
+            if (newValue[key]) {
+              obj[key] = newValue[key]
+            }
+          }
+          this.$emit('change', obj)
+        }
+        fn()
+        // lodash.throttle(fn, 100)
+      },
+      deep: true
+    }
+  },
+  computed: {
+    formList() {
+      return dict.styles
+        .map(item => {
+          return {
+            label: item.desc,
+            dom: item.list ? 'input-select' : 'input',
+            prop: item.prop,
+            list: item.list,
+            customLabel: true,
+            span: 24
+          }
+        })
+        .concat([
+          {
+            label: '边距',
+            dom: 'slot',
+            prop: 'bj',
+            span: 24,
+            slots: ['bj']
+          },
+          {
+            label: '代码',
+            dom: 'slot',
+            prop: 'code',
+            span: 24,
+            slots: ['code']
+          }
+        ])
+      // return [
+      //   {
+      //     label: '选择导入分组',
+      //     dom: 'select',
+      //     prop: 'resourceGroupId',
+      //     placeholder: '请选择导入分组',
+      //     list: [],
+      //     bind: {
+      //       labelInValue: true,
+      //       emptySelect: true
+      //     },
+      //     listeners: {
+      //       change: value => {
+      //         // this.handleResourceTypeChange(value)
+      //       }
+      //     },
+      //     span: 24
+      //   }
+      // ]
     }
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values)
+    handleSelectInput(value, prop) {
+      this.formData[prop] = value
+      // this.$refs.CommonPageForm.setFieldsValue({
+      //   [prop]: value
+      // })
+      this.mardomUpdate = value
+      this.$forceUpdate()
+    },
+    handleFormInput(value) {
+      console.log(value)
+      for (const key in value) {
+        if (key.indexOf('_input_select') === -1) {
+          this.formData[key] = value[key]
         }
-      })
+      }
+      this.$set(this, 'formData', JSON.parse(JSON.stringify(this.formData)))
+    },
+    handleComedirrorInput(value) {
+      this.formData = JSON.parse(value)
+    },
+    handleStyleBoxChange({ value, status }) {
+      console.log(value, status)
+      // this.mardomUpdate = value
+      this.formData[status] = value
+      this.$set(this, 'formData', this.formData)
+    },
+    reset() {
+      this.formData = {}
+      this.$refs.CommonPageForm.reset()
+    },
+    setFieldsValue(obj) {
+      this.formData = obj
+      this.$refs.CommonPageForm.setFieldsValue(obj)
     }
   }
 }

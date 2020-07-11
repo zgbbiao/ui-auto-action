@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:09:59
- * @LastEditTime: 2020-07-07 13:21:31
+ * @LastEditTime: 2020-07-11 14:04:03
  * @LastEditors: Please set LastEditors
  */
 import { Commit } from 'vuex';
@@ -32,5 +32,8 @@ export default {
   },
   setComponentCountId(context: { commit: Commit }, params: any) {
     context.commit(types.SET_COMPONENT_COUNT_ID, params);
+  },
+  setTagPanelCurSelectOptions(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_TAG_PANEL_CUR_SELECT_OPTIONS, params);
   },
 }

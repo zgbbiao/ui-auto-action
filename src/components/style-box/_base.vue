@@ -3,7 +3,7 @@
  * @Author: kcz
  * @Date: 2019-12-30 00:37:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-07-10 00:48:00
+ * @LastEditTime: 2020-07-11 02:55:26
  -->
 <template>
   <header :class="b('wrapper', ['wrapper'])">
@@ -164,7 +164,6 @@ export default class CommonStyleBox extends Vue {
   options: any
   change(e, status) {
     const value = e.target.value
-    console.log(e, status, value)
     const options = JSON.parse(JSON.stringify(this['options']))
     options[status] = value
     this.$emit('change', {
