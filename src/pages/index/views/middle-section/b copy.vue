@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-15 01:04:16
+ * @LastEditTime: 2020-07-09 10:48:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -11,7 +11,6 @@
     class="dragArea"
     tag="ul"
     :value="tasks"
-    :component-data="getComponentData()"
     @input="handleInput"
     :group="{ name: 'form-draggable' }"
     :animatio="180"
@@ -25,7 +24,6 @@
         <formNode :key="record.key" :record="record"> </formNode>
         <nested-draggable
           :tasks="record.tasks || []"
-          :propRecord="record || {}"
           @input="val => handleNested(val, index)"
         />
       </li>
@@ -60,12 +58,6 @@ const vuexIndexModule = namespace('index')
 export default class KFormComponentPanel extends Vue {
   @Prop({ default: [] })
   tasks
-  @Prop({
-    default: () => {
-      return {}
-    }
-  })
-  propRecord
   @vuexIndexModule.State(state => state.compomentUpdateTime) compomentUpdateTime
   @vuexIndexModule.State(state => state.componentCountId) componentCountId
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
@@ -109,12 +101,6 @@ export default class KFormComponentPanel extends Vue {
     tasks[index].tasks = val
     myconsole(tasks)
     this.$emit('input', JSON.parse(JSON.stringify(tasks)))
-  }
-  getComponentData() {
-    if (this['propRecord'].options) {
-      return this['propRecord'].options
-    }
-    return {}
   }
 }
 </script>
