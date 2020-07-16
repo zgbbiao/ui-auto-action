@@ -1,44 +1,40 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-16 22:26:07
+ * @LastEditTime: 2020-07-07 13:19:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
-  <expandRender :options="record.options">
-    <div :class="b('wrapper', ['wrapper'])">
-      <div
-        class="drag-move-box"
-        @click.stop="handleSelectItem"
-        :class="{ active: record.key === curPanelSelectTag.key }"
-      >
-        <div class="form-item-box">
+  <div :class="b('wrapper', ['wrapper'])">
+    <div
+      class="drag-move-box"
+      @click.stop="handleSelectItem"
+      :class="{ active: record.key === curPanelSelectTag.key }"
+    >
+      <div class="form-item-box">
+        <expandRender :options="record.options">
           <slot />
-        </div>
-        <div v-if="!isHideModel" class="show-key-box" v-text="record.model" />
-        <div
-          class="copy"
-          :class="
-            record.key === curPanelSelectTag.key ? 'active' : 'unactivated'
-          "
-          @click.stop="$emit('handleCopy')"
-        >
-          <a-icon type="copy" />
-        </div>
-        <div
-          class="delete"
-          :class="
-            record.key === curPanelSelectTag.key ? 'active' : 'unactivated'
-          "
-          @click.stop="$emit('handleDetele')"
-        >
-          <a-icon type="delete" />
-        </div>
+        </expandRender>
+      </div>
+      <div v-if="!isHideModel" class="show-key-box" v-text="record.model" />
+      <div
+        class="copy"
+        :class="record.key === curPanelSelectTag.key ? 'active' : 'unactivated'"
+        @click.stop="$emit('handleCopy')"
+      >
+        <a-icon type="copy" />
+      </div>
+      <div
+        class="delete"
+        :class="record.key === curPanelSelectTag.key ? 'active' : 'unactivated'"
+        @click.stop="$emit('handleDetele')"
+      >
+        <a-icon type="delete" />
       </div>
     </div>
-  </expandRender>
+  </div>
 </template>
 <script lang="ts">
 import bemMixins from '@/mixins/bem'
@@ -122,7 +118,6 @@ export default class PageIndexFormNode extends Vue {
       overflow: hidden;
       transition: all 0.3s;
       min-height: 36px;
-      // background: red;
 
       &:hover {
         background: @primary-hover-bg-color;

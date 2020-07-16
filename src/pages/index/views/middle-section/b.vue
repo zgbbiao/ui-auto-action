@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-15 01:04:16
+ * @LastEditTime: 2020-07-17 01:40:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -9,27 +9,37 @@
 <template>
   <draggable
     class="dragArea"
-    tag="ul"
+    tag="div"
     :value="tasks"
-    :component-data="getComponentData()"
+    :component-data="getComponentData"
+    :style="getComponentData.style || {}"
     @input="handleInput"
     :group="{ name: 'form-draggable' }"
-    :animatio="180"
+    :options="{
+      scroll: true,
+      animation: 150,
+      chosenClass: 'draggable-chosenClass'
+    }"
   >
+    <!-- :animatio="0" -->
+    <!-- <transition-group name="flip-list"> -->
     <template v-if="tasks && tasks.length">
-      <li
-        v-for="(record, index) in tasks"
-        :key="record.name + record.key + index"
-      >
-        {{ record.name }}
-        <formNode :key="record.key" :record="record"> </formNode>
-        <nested-draggable
-          :tasks="record.tasks || []"
-          :propRecord="record || {}"
-          @input="val => handleNested(val, index)"
-        />
-      </li>
+      <template v-for="(record, index) in tasks">
+        <formNode
+          :key="record.key"
+          :record="record"
+          @handleDetele="handleDetele(record, index)"
+        >
+          <nested-draggable
+            :key="record.name + record.key + index"
+            :tasks="record.tasks || []"
+            :propRecord="record || {}"
+            @input="val => handleNested(val, index)"
+          />
+        </formNode>
+      </template>
     </template>
+    <!-- </transition-group> -->
   </draggable>
 </template>
 <script lang="ts">
@@ -71,6 +81,17 @@ export default class KFormComponentPanel extends Vue {
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
   @vuexIndexModule.Action('setComponentCountId') setComponentCountId
   @vuexIndexModule.Action('setTagPanelCurSelect') setTagPanelCurSelect
+  get getComponentData() {
+    if (this['propRecord'].options) {
+      return this['propRecord'].options
+    }
+    return {}
+  }
+  handleDetele(record, index) {
+    const tasks = JSON.parse(JSON.stringify(this['tasks']))
+    tasks.splice(index, 1)
+    this.$emit('input', JSON.parse(JSON.stringify(tasks)))
+  }
   handleInput(value) {
     console.log('handleInput')
     const curTime = new Date().getTime()
@@ -80,8 +101,13 @@ export default class KFormComponentPanel extends Vue {
       return false
     }
     myconsole(value)
+    // 当移动选项到另外一项内部时触发，重新设置新的id，新增的时候key时空的， sort的时候数量是多个， 移动到内部德斯哈哈，只有一项，并且可能拥有子选项。
+    const arr = JSON.parse(JSON.stringify(value))
+    if (arr.length === 1 && arr[0].key) {
+      arr[0] = this.setNewKey(arr[0])
+    }
     // 设置当前添加节点的key，并保存添加记录数量，
-    const muvalue = JSON.parse(JSON.stringify(value)).map(element => {
+    const muvalue = JSON.parse(JSON.stringify(arr)).map(element => {
       if (typeof element === 'object' && !element.key) {
         const countId = this['componentCountId'] + 1
         element.key = `countid_${countId}`
@@ -91,6 +117,18 @@ export default class KFormComponentPanel extends Vue {
       return element
     })
     this.$emit('input', muvalue)
+  }
+  setNewKey(element) {
+    const countId = this['componentCountId'] + 1
+    element.key = `countid_${countId}`
+    this['setComponentCountId'](countId)
+    this['setTagPanelCurSelect'](element)
+    if (Array.isArray(element.tasks) && element.tasks.length) {
+      element.tasks = element.tasks.map(item => {
+        return this.setNewKey(item)
+      })
+    }
+    return element
   }
   handleNested(val, index) {
     console.log('handleNested', index)
@@ -110,11 +148,21 @@ export default class KFormComponentPanel extends Vue {
     myconsole(tasks)
     this.$emit('input', JSON.parse(JSON.stringify(tasks)))
   }
-  getComponentData() {
-    if (this['propRecord'].options) {
-      return this['propRecord'].options
+  showMenu(event) {
+    event.preventDefault()
+    const x = event.clientX
+    const y = event.clientY
+    // Get the current location
+    this['contextMenuData'].axis = {
+      x,
+      y
     }
-    return {}
+  }
+  savedata() {
+    console.log('savedata!')
+  }
+  newdata() {
+    console.log('newdata!')
   }
 }
 </script>
@@ -123,5 +171,16 @@ export default class KFormComponentPanel extends Vue {
 .dragArea {
   min-height: 50px;
   outline: 1px dashed;
+  padding-bottom: 10px;
+}
+// .dragArea li {
+//   display: inline-block;
+//   vertical-align: top;
+// }
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.draggable-chosenClass {
+  background: red;
 }
 </style>

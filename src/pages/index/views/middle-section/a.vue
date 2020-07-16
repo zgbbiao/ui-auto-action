@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-07 01:51:41
+ * @LastEditTime: 2020-07-17 01:45:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -12,11 +12,13 @@
     <h3>Nested draggable</h3>
     <nested-draggable :tasks="list" :key="list.length" @input="handleInput" />
     <!-- <AA :myList="list"></AA> -->
+    <dda></dda>
   </div>
 </template>
 <script lang="ts">
 // import AA from './aa.js'
 import nestedDraggable from './b.vue'
+import dda from './dda.vue'
 import {
   Component,
   // Emit,
@@ -32,7 +34,8 @@ const vuexIndexModule = namespace('index')
 @Component({
   name: 'nested-example',
   components: {
-    nestedDraggable
+    nestedDraggable,
+    dda
     // AA
   },
   data() {
