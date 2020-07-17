@@ -1,7 +1,7 @@
 /*
  * @Author: your prop
  * @Date: 2020-07-10 22:19:36
- * @LastEditTime: 2020-07-11 21:40:04
+ * @LastEditTime: 2020-07-18 01:41:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\dict\style.js
@@ -799,6 +799,34 @@ export default {
         {
           label: 'inherit',
           value: 'inherit'
+        },
+        {
+          label: '100',
+          value: '100'
+        },
+        {
+          label: '200',
+          value: '200'
+        },
+        {
+          label: '300',
+          value: '300'
+        },
+        {
+          label: '400',
+          value: '400'
+        },
+        {
+          label: '500',
+          value: '500'
+        },
+        {
+          label: '600',
+          value: '600'
+        },
+        {
+          label: '700',
+          value: '700'
         }
       ]
     },
