@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-16 23:11:01
+ * @LastEditTime: 2020-07-18 02:08:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -74,8 +74,8 @@ export default class PageIndexRightAside extends Vue {
       this.reset()
     }
   }
-  handleStyleChange(style) {
-    if (Object.keys(style).length) {
+  handleStyleChange(style, isUpdate) {
+    if (Object.keys(style).length || isUpdate) {
       this['setTagPanelCurSelectOptions']({
         style: style
       })

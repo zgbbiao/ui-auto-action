@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-18 01:38:12
+ * @LastEditTime: 2020-07-18 02:07:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -148,7 +148,6 @@ export default {
       this.$set(this, 'formData', JSON.parse(JSON.stringify(this.formData)))
     },
     handleComedirrorInput(value) {
-      console.log(value)
       value = value
         .replace(/[\n\r\t\v]/g, '')
         .replace(/(\w+)-(\w+)/gi, function(str) {
@@ -163,7 +162,12 @@ export default {
         .replace(/;/gi, ',')
         .replace(/,\}$/g, '}')
         .replace(/\s/g, '')
+      console.log(value)
       this.formData = JSON.parse(value)
+      this.$set(this, 'formData', this.formData)
+      setTimeout(() => {
+        this.$emit('change', this.formData, true)
+      }, 300)
     },
     handleStyleBoxChange({ value, status }) {
       console.log(value, status)
