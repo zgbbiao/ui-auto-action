@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-19 18:25:41
+ * @LastEditTime: 2020-07-17 16:00:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -15,11 +15,7 @@
     >
       <!-- 基础控件 start -->
       <a-collapse-panel header="基础布局控件" key="1">
-        <PageIndexCollapseitem
-          :list="layoutList"
-          @generateKey="generateKey"
-          @start="handleStart"
-        />
+        <PageIndexCollapseitem :list="layoutList" @start="handleStart" />
       </a-collapse-panel>
       <!-- 基础控件 end -->
     </a-collapse>
@@ -60,13 +56,6 @@ export default class PageIndexLeftAside extends Vue {
   collapseActiveKeyLeftAside
   @vuexIndexModule.State(state => state.layoutComponentList)
   layoutComponentList!: Array<any>
-  // @vuexIndexModule.State(state => state.tagPanelType) tagPanelType
-  // @vuexIndexModule.State(state => state.selectTagList) selectTagList
-  // @vuexIndexModule.State(state => state.tagKeyNewSelect) tagKeyNewSelect
-  // @State('layoutComponentList', { namespace: 'index' }) layoutComponentList
-
-  // @Action('setLeftCollapseActiveKey', { namespace: 'index' })
-  // setLeftCollapseActiveKey
   @vuexIndexModule.Action('setLeftCollapseActiveKey') setLeftCollapseActiveKey
   @vuexIndexModule.Action('setTagSelectList') setTagSelectList
   @vuexIndexModule.Action('setTagKeyNewSelect') setTagKeyNewSelect
@@ -77,48 +66,6 @@ export default class PageIndexLeftAside extends Vue {
   collapseChange(val) {
     this['setLeftCollapseActiveKey'](val)
   }
-  generateKey(list, index) {
-    // 生成key值
-    // const key = list[index].type + '_' + new Date().getTime()
-    // this.$set(list, index, {
-    //   ...list[index],
-    //   key,
-    //   model: key
-    // })
-    // this['setTagKeyNewSelect'](key)
-    // if (this['noModel'].includes(list[index].type)) {
-    //   // 删除不需要的model属性
-    //   delete list[index].model
-    // }
-  }
-  // handleListPush(item) {
-  //   console.log('handleListPush', item)
-  //   // 双击控件按钮push到list
-  //   // 生成key值
-  //   if (!item.key || this['curPanelSelectTag'].key !== item.key) {
-  //     // 在没有选择表单时，将数据push到this.data.list
-  //     const key = item.type + '_' + new Date().getTime()
-  //     item = {
-  //       ...item,
-  //       key,
-  //       model: key
-  //     }
-  //     if (this['noModel'].includes(item.type)) {
-  //       // 删除不需要的model属性
-  //       delete item.model
-  //     }
-  //     const itemString = JSON.stringify(item)
-  //     const record = JSON.parse(itemString)
-  //     // 删除icon及compoent属性
-  //     delete record.icon
-  //     delete record.component
-  //     const selectTagList = this['selectTagList']
-  //     this['setTagSelectList'](selectTagList.concat([record]))
-  //     console.log('handleListPush', this['selectTagList'])
-  //     this['handleSetSelectItem'](record)
-  //     return false
-  //   }
-  // }
   // 选择切换tag属性面板
   handleStart(type) {
     this['setTagPanelType'](type)

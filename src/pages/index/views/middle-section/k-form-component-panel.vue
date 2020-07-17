@@ -1,48 +1,31 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-19 18:41:08
+ * @LastEditTime: 2020-07-17 15:58:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
   <div :class="b('wrapper', ['wrapper'])">
-    <!-- <div class="form-panel" v-if="!list.length" :key="list.length">
-      <p class="hint-text">
-        从左侧选择控件添加
-      </p>
-    </div> -->
     <div class="a-form-box k-form-build">
-      <!-- <nested-draggable :list="list" @input="onChangeValue"></nested-draggable> -->
-      <ABC></ABC>
+      <panelComponent></panelComponent>
     </div>
   </div>
 </template>
 <script lang="ts">
 import tagSelectMixins from '@/pages/index/mixins/part/tag-select'
 import bemMixins from '@/mixins/bem'
-import { namespace } from 'vuex-class'
-import { Component, Vue, Prop } from 'vue-property-decorator'
-// import nestedDraggable from './nested-draggable.vue'
-import ABC from './a.vue'
-const vuexIndexModule = namespace('index')
+import { Component, Vue } from 'vue-property-decorator'
+import panelComponent from './panel.vue'
 @Component({
   name: 'KFormComponentPanel',
   mixins: [bemMixins, tagSelectMixins],
   components: {
-    // nestedDraggable,
-    ABC
+    panelComponent
   }
 })
-export default class KFormComponentPanel extends Vue {
-  @Prop({ default: [] })
-  list!: Array<any>
-  onChangeValue(newVal: any) {
-    // todo...
-    this.$emit('input', newVal)
-  }
-}
+export default class KFormComponentPanel extends Vue {}
 </script>
 
 <style lang="less">

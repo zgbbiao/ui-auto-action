@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-16 22:26:07
+ * @LastEditTime: 2020-07-17 17:20:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -17,8 +17,8 @@
         <div class="form-item-box">
           <slot />
         </div>
-        <div v-if="!isHideModel" class="show-key-box" v-text="record.model" />
-        <div
+        <!-- <div v-if="!isHideModel" class="show-key-box" v-text="record.model" /> -->
+        <!-- <div
           class="copy"
           :class="
             record.key === curPanelSelectTag.key ? 'active' : 'unactivated'
@@ -35,9 +35,15 @@
           @click.stop="$emit('handleDetele')"
         >
           <a-icon type="delete" />
-        </div>
+        </div> -->
       </div>
     </div>
+    <rightMenu
+      :record="record"
+      :menus="menus"
+      @delete="handleDetele"
+      :contextMenuTarget="record.options.attrs['data-countid']"
+    ></rightMenu>
   </expandRender>
 </template>
 <script lang="ts">
@@ -45,6 +51,7 @@ import bemMixins from '@/mixins/bem'
 import tagSelectMixins from '@/pages/index/mixins/part/tag-select'
 import expandRender from '@/components/expand/index.js'
 import { namespace } from 'vuex-class'
+import rightMenu from './right-menu.vue'
 import {
   Component,
   // Emit,
@@ -60,7 +67,24 @@ const vuexIndexModule = namespace('index')
   name: 'PageIndexFormNode',
   mixins: [bemMixins, tagSelectMixins],
   components: {
-    expandRender
+    expandRender,
+    rightMenu
+  },
+  data() {
+    return {
+      menus: [
+        {
+          handler: 'copy', // Binding events(绑定事件)
+          icon: 'copy', // icon (icon图标 )
+          label: '复制' // The name of the menu option (菜单名称)
+        },
+        {
+          handler: 'delete', // Binding events(绑定事件)
+          icon: 'delete', // icon (icon图标 )
+          label: '删除' // The name of the menu option (菜单名称)
+        }
+      ]
+    }
   }
 })
 export default class PageIndexFormNode extends Vue {
@@ -70,6 +94,10 @@ export default class PageIndexFormNode extends Vue {
   record: any
   handleSelectItem() {
     this['setTagPanelCurSelect'](this['record'])
+  }
+  // handleCopy() {}
+  handleDetele() {
+    this.$emit('handleDetele')
   }
 }
 </script>
@@ -118,7 +146,7 @@ export default class PageIndexFormNode extends Vue {
     .drag-move-box {
       position: relative;
       box-sizing: border-box;
-      padding: 8px;
+      // padding: 8px;
       overflow: hidden;
       transition: all 0.3s;
       min-height: 36px;

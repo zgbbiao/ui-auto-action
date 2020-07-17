@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 01:40:41
+ * @LastEditTime: 2020-07-17 15:52:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -104,30 +104,38 @@ export default class KFormComponentPanel extends Vue {
     // 当移动选项到另外一项内部时触发，重新设置新的id，新增的时候key时空的， sort的时候数量是多个， 移动到内部德斯哈哈，只有一项，并且可能拥有子选项。
     const arr = JSON.parse(JSON.stringify(value))
     if (arr.length === 1 && arr[0].key) {
-      arr[0] = this.setNewKey(arr[0])
+      arr[0] = this.setDeepNewKey(arr[0])
     }
     // 设置当前添加节点的key，并保存添加记录数量，
     const muvalue = JSON.parse(JSON.stringify(arr)).map(element => {
       if (typeof element === 'object' && !element.key) {
-        const countId = this['componentCountId'] + 1
-        element.key = `countid_${countId}`
-        this['setComponentCountId'](countId)
-        this['setTagPanelCurSelect'](element)
+        element = this.setNewKey(element)
       }
       return element
     })
     this.$emit('input', muvalue)
   }
+  setDeepNewKey(element) {
+    element = this.setNewKey(element)
+    if (Array.isArray(element.tasks) && element.tasks.length) {
+      element.tasks = element.tasks.map(item => {
+        return this.setDeepNewKey(item)
+      })
+    }
+    return element
+  }
   setNewKey(element) {
     const countId = this['componentCountId'] + 1
     element.key = `countid_${countId}`
+    if (!element.options) {
+      element.options = {}
+    }
+    if (!element.options.attrs) {
+      element.options.attrs = {}
+    }
+    element.options.attrs['data-countid'] = element.key
     this['setComponentCountId'](countId)
     this['setTagPanelCurSelect'](element)
-    if (Array.isArray(element.tasks) && element.tasks.length) {
-      element.tasks = element.tasks.map(item => {
-        return this.setNewKey(item)
-      })
-    }
     return element
   }
   handleNested(val, index) {

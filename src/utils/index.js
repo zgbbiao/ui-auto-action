@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-18 17:55:36
- * @LastEditTime: 2020-07-07 01:32:37
+ * @LastEditTime: 2020-07-17 17:08:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\utils\index.js
@@ -31,4 +31,18 @@ export const myconsole = function(val, name = '') {
   } else {
     console.log(`${fixxname}----->`, val)
   }
+}
+
+// 深度删除数组内某项值
+export const deepRemoveItem = function(arr, callback, childrenName = 'tasks') {
+  return arr.filter(item => {
+    let isTrue = true
+    if (callback) {
+      isTrue = callback(item)
+    }
+    if (Array.isArray(item[childrenName])) {
+      item[childrenName] = deepRemoveItem(item[childrenName])
+    }
+    return isTrue
+  })
 }

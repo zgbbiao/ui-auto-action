@@ -1,24 +1,19 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 01:45:40
+ * @LastEditTime: 2020-07-17 16:25:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
   <div>
-    <!-- {{ JSON.stringify(list, null, 2).toString() }} -->
     <h3>Nested draggable</h3>
     <nested-draggable :tasks="list" :key="list.length" @input="handleInput" />
-    <!-- <AA :myList="list"></AA> -->
-    <dda></dda>
   </div>
 </template>
 <script lang="ts">
-// import AA from './aa.js'
-import nestedDraggable from './b.vue'
-import dda from './dda.vue'
+import nestedDraggable from './nested-draggable.vue'
 import {
   Component,
   // Emit,
@@ -34,8 +29,7 @@ const vuexIndexModule = namespace('index')
 @Component({
   name: 'nested-example',
   components: {
-    nestedDraggable,
-    dda
+    nestedDraggable
     // AA
   },
   data() {
@@ -81,10 +75,12 @@ const vuexIndexModule = namespace('index')
 export default class KFormComponentPanel extends Vue {
   @vuexIndexModule.State(state => state.compomentUpdateTime) compomentUpdateTime
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
+  @vuexIndexModule.Action('setTagSelectList') setTagSelectList
   handleInput(value) {
     myconsole(value, 'a-component')
     this['setComponentUpdateTime'](new Date().getTime())
     this.$set(this, 'list', value)
+    this['setTagSelectList'](value)
   }
 }
 </script>
