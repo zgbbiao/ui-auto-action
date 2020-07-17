@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-17 19:24:53
+ * @LastEditTime: 2020-07-18 01:38:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -150,16 +150,19 @@ export default {
     handleComedirrorInput(value) {
       console.log(value)
       value = value
-        .replace(/;/gi, ',')
+        .replace(/[\n\r\t\v]/g, '')
         .replace(/(\w+)-(\w+)/gi, function(str) {
-          console.log(str)
           return cssStyle2DomStyle(str)
-          // return cssStyle2DomStyle(str)
         })
-        .replace(/:.+,/gi, function(str) {
-          return `${str.slice(0, 1)}'${str.slice(2, -1)}'${str.slice(-1)}`
+        .replace(/(\w)+:/gi, function(str) {
+          return `"${str.slice(0, -1)}":`
         })
-      console.log(value)
+        .replace(/:[^;]+;/gi, function(str) {
+          return `${str.slice(0, 1)}"${str.slice(1, -1)}"${str.slice(-1)}`
+        })
+        .replace(/;/gi, ',')
+        .replace(/,\}$/g, '}')
+        .replace(/\s/g, '')
       this.formData = JSON.parse(value)
     },
     handleStyleBoxChange({ value, status }) {
