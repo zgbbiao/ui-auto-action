@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-11 21:43:02
+ * @LastEditTime: 2020-07-17 19:24:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -35,6 +35,7 @@
 import CommonPageForm from 'page-form'
 // import inputSelect from '@/components/input-select/_base.vue'
 import dict from '@/dict/index.js'
+import { cssStyle2DomStyle } from '@/utils/index.js'
 // import lodash from 'lodash'
 export default {
   components: {
@@ -147,6 +148,18 @@ export default {
       this.$set(this, 'formData', JSON.parse(JSON.stringify(this.formData)))
     },
     handleComedirrorInput(value) {
+      console.log(value)
+      value = value
+        .replace(/;/gi, ',')
+        .replace(/(\w+)-(\w+)/gi, function(str) {
+          console.log(str)
+          return cssStyle2DomStyle(str)
+          // return cssStyle2DomStyle(str)
+        })
+        .replace(/:.+,/gi, function(str) {
+          return `${str.slice(0, 1)}'${str.slice(2, -1)}'${str.slice(-1)}`
+        })
+      console.log(value)
       this.formData = JSON.parse(value)
     },
     handleStyleBoxChange({ value, status }) {

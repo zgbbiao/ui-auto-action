@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 17:20:14
+ * @LastEditTime: 2020-07-17 17:30:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -146,7 +146,7 @@ export default class PageIndexFormNode extends Vue {
     .drag-move-box {
       position: relative;
       box-sizing: border-box;
-      // padding: 8px;
+      padding: 8px;
       overflow: hidden;
       transition: all 0.3s;
       min-height: 36px;

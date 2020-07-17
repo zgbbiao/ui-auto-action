@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-06-18 17:55:36
- * @LastEditTime: 2020-07-17 17:08:40
+ * @LastEditTime: 2020-07-17 18:19:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\utils\index.js
@@ -45,4 +45,17 @@ export const deepRemoveItem = function(arr, callback, childrenName = 'tasks') {
     }
     return isTrue
   })
+}
+
+export const cssStyle2DomStyle = function(sName) {
+  const arr = sName.split('-')
+  const arr1 = arr.filter(item => item)
+  const arr2 = arr1.map(function(val, i) {
+    if (i > 0) {
+      return val.replace(val[0], val[0].toUpperCase())
+    } else {
+      return val
+    }
+  })
+  return arr2.join('')
 }
