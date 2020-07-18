@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-18 16:56:17
+ * @LastEditTime: 2020-07-18 17:06:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -136,15 +136,15 @@ export default {
       this.mardomUpdate = value
       this.$forceUpdate()
     },
-    handleFormInput(value) {
-      console.log(value)
+    handleFormInput: lodash.throttle(function(value) {
+      const formData = JSON.parse(JSON.stringify(this.formData))
       for (const key in value) {
         if (key.indexOf('_input_select') === -1) {
-          this.formData[key] = value[key]
+          formData[key] = value[key]
         }
       }
-      this.$set(this, 'formData', JSON.parse(JSON.stringify(this.formData)))
-    },
+      this.$set(this, 'formData', JSON.parse(JSON.stringify(formData)))
+    }, 300),
     handleComedirrorInput: lodash.throttle(function(value) {
       try {
         // 当value已经是json的时候，则不进行转换
@@ -170,7 +170,7 @@ export default {
       setTimeout(() => {
         this.$emit('change', this.formData, true)
       }, 300)
-    }, 100),
+    }, 300),
     handleStyleBoxChange({ value, status }) {
       console.log(value, status)
       // this.mardomUpdate = value
