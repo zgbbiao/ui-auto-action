@@ -39,4 +39,8 @@ export default {
   [types.SET_COMPONENT_COUNT_ID](state: State, data: any) {
     state.componentCountId = data
   },
+  // 计数组件的Id
+  [types.SET_CONTEXT_MENU_TARGET](state: State, data: any) {
+    state.contextMenuTarget = data
+  }
 }
