@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-18 02:07:48
+ * @LastEditTime: 2020-07-18 16:56:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -35,8 +35,8 @@
 import CommonPageForm from 'page-form'
 // import inputSelect from '@/components/input-select/_base.vue'
 import dict from '@/dict/index.js'
-import { cssStyle2DomStyle } from '@/utils/index.js'
-// import lodash from 'lodash'
+// import { cssStyle2DomStyle } from '@/utils/index.js'
+import lodash from 'lodash'
 export default {
   components: {
     CommonPageForm
@@ -59,23 +59,21 @@ export default {
           sm: { span: 24 }
         }
       }
+      // lodash
     }
   },
   watch: {
     formData: {
-      handler(newValue) {
-        const fn = () => {
-          const obj = {}
-          for (const key in newValue) {
-            if (newValue[key]) {
-              obj[key] = newValue[key]
-            }
+      handler: lodash.throttle(function(newValue) {
+        const obj = {}
+        for (const key in newValue) {
+          if (newValue[key]) {
+            obj[key] = newValue[key]
           }
-          this.$emit('change', obj)
         }
-        fn()
-        // lodash.throttle(fn, 100)
-      },
+        console.log('formData-fn')
+        this.$emit('change', obj)
+      }, 100),
       deep: true
     }
   },
@@ -147,28 +145,32 @@ export default {
       }
       this.$set(this, 'formData', JSON.parse(JSON.stringify(this.formData)))
     },
-    handleComedirrorInput(value) {
-      value = value
-        .replace(/[\n\r\t\v]/g, '')
-        .replace(/(\w+)-(\w+)/gi, function(str) {
-          return cssStyle2DomStyle(str)
-        })
-        .replace(/(\w)+:/gi, function(str) {
-          return `"${str.slice(0, -1)}":`
-        })
-        .replace(/:[^;]+;/gi, function(str) {
-          return `${str.slice(0, 1)}"${str.slice(1, -1)}"${str.slice(-1)}`
-        })
-        .replace(/;/gi, ',')
-        .replace(/,\}$/g, '}')
-        .replace(/\s/g, '')
+    handleComedirrorInput: lodash.throttle(function(value) {
+      try {
+        // 当value已经是json的时候，则不进行转换
+        value = JSON.stringify(JSON.parse(value))
+      } catch {
+        // 当value不是json，即可能从蓝湖复制的css代码块，则进行转换。
+        value = value
+          .replace(/[^\s|^{]+:/gi, function(str) {
+            return `"${str.slice(0, -1)}":`
+          })
+          .replace(/[\n\r\t\v]/g, '')
+          .replace(/:[^;]+;/gi, function(str) {
+            return `${str.slice(0, 1)}"${str.slice(1, -1)}"${str.slice(-1)}`
+          })
+          .replace(/;\}$/g, '}')
+          .replace(/(;)/g, function() {
+            return ','
+          })
+      }
       console.log(value)
       this.formData = JSON.parse(value)
       this.$set(this, 'formData', this.formData)
       setTimeout(() => {
         this.$emit('change', this.formData, true)
       }, 300)
-    },
+    }, 100),
     handleStyleBoxChange({ value, status }) {
       console.log(value, status)
       // this.mardomUpdate = value
@@ -185,5 +187,14 @@ export default {
     }
   }
 }
+/*
+width:187px;
+height:42px;
+font-size:12px;
+font-family:PingFangSC-Regular,PingFang SC;
+font-weight:400;
+color:rgba(255,255,255,1);
+line-height:18px;
+*/
 </script>
 <style lang="less"></style>

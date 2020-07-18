@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:09:59
- * @LastEditTime: 2020-07-17 15:33:11
+ * @LastEditTime: 2020-07-18 11:15:22
  * @LastEditors: Please set LastEditors
  */
 import { Commit } from 'vuex';
@@ -36,8 +36,8 @@ export default {
   setTagPanelCurSelectOptions(context: { commit: Commit }, params: any) {
     context.commit(types.SET_TAG_PANEL_CUR_SELECT_OPTIONS, params);
   },
-  setContextMenuTarget(context: { commit: Commit }, params: any) {
-    context.commit(types.SET_CONTEXT_MENU_TARGET, params);
+  setPreview(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_PREVIEW, params);
   },
 }
 

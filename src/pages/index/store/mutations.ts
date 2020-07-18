@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 18:26:19
- * @LastEditTime: 2020-07-11 14:03:29
+ * @LastEditTime: 2020-07-18 11:19:17
  * @LastEditors: Please set LastEditors
  */
 import types from './mutation-types'
@@ -39,8 +39,7 @@ export default {
   [types.SET_COMPONENT_COUNT_ID](state: State, data: any) {
     state.componentCountId = data
   },
-  // 计数组件的Id
-  [types.SET_CONTEXT_MENU_TARGET](state: State, data: any) {
-    state.contextMenuTarget = data
+  [types.SET_PREVIEW](state: State, data: any) {
+    state.isPreview = data
   }
 }

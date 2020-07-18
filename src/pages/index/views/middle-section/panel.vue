@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 16:25:26
+ * @LastEditTime: 2020-07-18 11:46:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -21,7 +21,8 @@ import {
   // Model,
   // Provide,
   // Prop,
-  Vue
+  Vue,
+  Watch
 } from 'vue-property-decorator'
 import { myconsole } from '@/utils/index.js'
 import { namespace } from 'vuex-class'
@@ -74,8 +75,14 @@ const vuexIndexModule = namespace('index')
 })
 export default class KFormComponentPanel extends Vue {
   @vuexIndexModule.State(state => state.compomentUpdateTime) compomentUpdateTime
+  @vuexIndexModule.State(state => state.selectTagList) selectTagList
   @vuexIndexModule.Action('setComponentUpdateTime') setComponentUpdateTime
   @vuexIndexModule.Action('setTagSelectList') setTagSelectList
+
+  @Watch('selectTagList', { immediate: true, deep: true })
+  onChangeValue(newVal: any, oldVal: any) {
+    this['list'] = newVal
+  }
   handleInput(value) {
     myconsole(value, 'a-component')
     this['setComponentUpdateTime'](new Date().getTime())

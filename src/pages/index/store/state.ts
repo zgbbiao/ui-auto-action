@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-02 15:57:41
- * @LastEditTime: 2020-07-17 15:31:49
+ * @LastEditTime: 2020-07-18 11:23:15
  * @LastEditors: Please set LastEditors
  */
 export interface State {
@@ -11,15 +11,15 @@ export interface State {
   isToolbarsTop: boolean
   isShowHead: boolean
   isHideModel: boolean
-  tagPanelType: any,
-  curPanelSelectTag: object,
+  tagPanelType: any
+  curPanelSelectTag: object
   insertAllowedType: Array<any>
   noModel: Array<any>
   selectTagList: Array<any>
   tagKeyNewSelect: any
   compomentUpdateTime: any
   componentCountId: any
-  contextMenuTarget: any
+  isPreview: boolean
   // total: number;
   // isLogin: boolean;
   // postList: object[];
@@ -147,7 +147,7 @@ export const state: State = {
   tagKeyNewSelect: '',
   compomentUpdateTime: 0,
   componentCountId: 1,
-  contextMenuTarget: null
+  isPreview: false
 }
 
 export default state

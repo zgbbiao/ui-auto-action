@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 17:30:28
+ * @LastEditTime: 2020-07-18 12:06:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
 -->
 <template>
-  <expandRender :options="record.options">
+  <expandRender :options="recordoptions">
     <div :class="b('wrapper', ['wrapper'])">
       <div
         class="drag-move-box"
@@ -15,6 +15,15 @@
         :class="{ active: record.key === curPanelSelectTag.key }"
       >
         <div class="form-item-box">
+          {{
+            record.options.domProps
+              ? record.options.domProps.innerHTML
+                ? record.options.domProps.innerHTML
+                : record.options.domProps.innerText
+                ? record.options.domProps.innerText
+                : ''
+              : ''
+          }}
           <slot />
         </div>
         <!-- <div v-if="!isHideModel" class="show-key-box" v-text="record.model" /> -->
@@ -94,6 +103,11 @@ export default class PageIndexFormNode extends Vue {
   record: any
   handleSelectItem() {
     this['setTagPanelCurSelect'](this['record'])
+  }
+  get recordoptions() {
+    const options = JSON.parse(JSON.stringify(this['record'].options))
+    delete options.domProps
+    return options
   }
   // handleCopy() {}
   handleDetele() {

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 15:58:43
+ * @LastEditTime: 2020-07-18 14:21:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -38,12 +38,12 @@ export default class KFormComponentPanel extends Vue {}
 }
 
 .a-form-box {
-  height: 100vh;
-  // box-shadow: 0px 1px 5px 1px #ccc;
-  position: absolute;
-  z-index: 8;
-  width: 100%;
-  min-height: 100px;
+  // height: 100vh;
+  // // box-shadow: 0px 1px 5px 1px #ccc;
+  // position: absolute;
+  // z-index: 8;
+  // width: 100%;
+  // min-height: 100px;
 }
 .hint-text {
   position: absolute;

@@ -3,10 +3,12 @@
  * @Author: kcz
  * @Date: 2019-12-30 00:37:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-13 17:08:23
+ * @LastEditTime: 2020-07-18 11:04:59
  -->
 <template>
-  <header :class="b('wrapper', ['wrapper'])"></header>
+  <header :class="b('wrapper', ['wrapper'])">
+    <slot></slot>
+  </header>
   <!--  -->
 </template>
 <script lang="ts">

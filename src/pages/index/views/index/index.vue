@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-06-13 23:05:19
+ * @LastEditTime: 2020-07-18 11:41:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -9,7 +9,9 @@
 <template>
   <a-config-provider :locale="locale">
     <div :class="b('wrapper', ['wrapper'])">
-      <Common-header />
+      <Common-header>
+        <a-switch :value="isPreview" @change="handleSwitchChange" />
+      </Common-header>
       <PageIndexComtent />
     </div>
   </a-config-provider>
@@ -18,6 +20,7 @@
 import bemMixins from '@/mixins/bem'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN.js'
 import PageIndexComtent from '@/pages/index/views/content/index.vue'
+import { namespace } from 'vuex-class'
 import {
   Component,
   // Emit,
@@ -27,18 +30,24 @@ import {
   Vue
   // Watch
 } from 'vue-property-decorator'
+const vuexIndexModule = namespace('index')
 @Component({
   name: 'PageIndex',
   mixins: [bemMixins],
   components: {
     PageIndexComtent
-  }
-})
-export default class PageIndex extends Vue {
+  },
   data() {
     return {
       locale: zhCN
     }
+  }
+})
+export default class PageIndex extends Vue {
+  @vuexIndexModule.Action('setPreview') setPreview
+  @vuexIndexModule.State(state => state.isPreview) isPreview
+  handleSwitchChange(checked) {
+    this['setPreview'](checked)
   }
 }
 </script>
