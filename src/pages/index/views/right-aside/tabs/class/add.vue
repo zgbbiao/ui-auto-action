@@ -1,34 +1,44 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-19 19:28:27
+ * @LastEditTime: 2020-07-19 19:27:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
  -->
 <template>
-  <div :key="mardomUpdate">
-    <CommonPageForm
-      ref="CommonPageForm"
-      :form-list="formList"
-      :form-data="formData"
-      :rules="rules"
-      labelWidth="100px"
-      :formItemLayout="formItemLayout"
-      @input="handleFormInput"
-    >
-      <template v-slot:bj>
-        <CommonStyleBox @change="handleStyleBoxChange"></CommonStyleBox>
-      </template>
-      <template v-slot:code>
-        <CommonTestCodemirror
-          :value="JSON.stringify(formData, null, 2)"
-          @input="handleComedirrorInput"
-        ></CommonTestCodemirror>
-      </template>
-      <!-- CommonTestCodemirror -->
-    </CommonPageForm>
-  </div>
+  <a-modal
+    :title="title"
+    :visible="visible"
+    @ok="handleOk"
+    @cancel="handleCancel"
+  >
+    <div :key="mardomUpdate">
+      <CommonPageForm
+        ref="CommonPageForm"
+        :form-list="formList"
+        :form-data="formData"
+        :rules="rules"
+        labelWidth="100px"
+        :formItemLayout="formItemLayout"
+        @input="handleFormInput"
+      >
+        <template v-slot:bj>
+          <CommonStyleBox
+            :options="styleBoxOptions"
+            @change="handleStyleBoxChange"
+          ></CommonStyleBox>
+        </template>
+        <template v-slot:code>
+          <CommonTestCodemirror
+            :value="JSON.stringify(formData, null, 2)"
+            @input="handleComedirrorInput"
+          ></CommonTestCodemirror>
+        </template>
+        <!-- CommonTestCodemirror -->
+      </CommonPageForm>
+    </div>
+  </a-modal>
 </template>
 
 <script>
@@ -42,12 +52,30 @@ export default {
     CommonPageForm
     // inputSelect
   },
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: '新增样式'
+    }
+  },
   data() {
     return {
       formLayout: 'horizontal',
       form: this.$form.createForm(this, { name: 'coordinated' }),
       rules: {},
-      formData: {},
+      formData: {
+        display: 'inline-block',
+        'justify-content': 'flex-end',
+        'align-items': 'flex-start',
+        height: '100px',
+        width: '30px',
+        'margin-top': '10px',
+        'padding-bottom': '20px'
+      },
       mardomUpdate: '',
       formItemLayout: {
         labelCol: {
@@ -182,6 +210,12 @@ export default {
     setFieldsValue(obj) {
       this.formData = obj
       this.$refs.CommonPageForm.setFieldsValue(obj)
+    },
+    handleOk(values) {
+      this.$emit('ok', values)
+    },
+    handleCancel() {
+      this.$emit('close')
     }
   }
 }

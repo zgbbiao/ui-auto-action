@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-18 02:08:28
+ * @LastEditTime: 2020-07-19 00:56:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -28,6 +28,9 @@
             @change="handleStyleChange"
           ></styleComponent>
         </template>
+        <template v-if="pane.key === 'class'">
+          <classComponent ref="classComponent"></classComponent>
+        </template>
       </div>
     </a-tab-pane>
   </a-tabs>
@@ -35,6 +38,7 @@
 <script lang="ts">
 import LabelComponent from './label.vue'
 import styleComponent from './style.vue'
+import classComponent from './class/index.vue'
 import bemMixins from '@/mixins/bem'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
@@ -54,7 +58,8 @@ const vuexIndexModule = namespace('index')
   mixins: [bemMixins],
   components: {
     LabelComponent,
-    styleComponent
+    styleComponent,
+    classComponent
   },
   data() {
     return {

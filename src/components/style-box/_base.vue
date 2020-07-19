@@ -3,7 +3,7 @@
  * @Author: kcz
  * @Date: 2019-12-30 00:37:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-07-11 02:55:26
+ * @LastEditTime: 2020-07-19 19:25:30
  -->
 <template>
   <header :class="b('wrapper', ['wrapper'])">
@@ -14,8 +14,8 @@
         <a-input
           class="style-box-input"
           size="small"
-          :value="options['marginTop']"
-          @change="e => change(e, 'marginTop')"
+          :value="options['margin-top']"
+          @change="e => change(e, 'margin-top')"
         ></a-input>
       </div>
       <div class="style-box-body">
@@ -23,8 +23,8 @@
           <a-input
             class="style-box-input"
             size="small"
-            :value="options['marginLeft']"
-            @change="e => change(e, 'marginLeft')"
+            :value="options['margin-left']"
+            @change="e => change(e, 'margin-left')"
           ></a-input>
         </div>
         <div class="style-box-body-middle">
@@ -35,8 +35,8 @@
               <a-input
                 class="style-box-input"
                 size="small"
-                :value="options['borderTop']"
-                @change="e => change(e, 'borderTop')"
+                :value="options['border-top']"
+                @change="e => change(e, 'border-top')"
               ></a-input>
             </div>
             <div class="style-box-body">
@@ -44,8 +44,8 @@
                 <a-input
                   class="style-box-input"
                   size="small"
-                  :value="options['borderLeft']"
-                  @change="e => change(e, 'borderLeft')"
+                  :value="options['border-left']"
+                  @change="e => change(e, 'border-left')"
                 ></a-input>
               </div>
               <div class="style-box-body-middle">
@@ -56,8 +56,8 @@
                     <a-input
                       class="style-box-input"
                       size="small"
-                      :value="options['paddingTop']"
-                      @change="e => change(e, 'paddingTop')"
+                      :value="options['padding-top']"
+                      @change="e => change(e, 'padding-top')"
                     ></a-input>
                   </div>
                   <div class="style-box-body">
@@ -65,8 +65,8 @@
                       <a-input
                         class="style-box-input"
                         size="small"
-                        :value="options['paddingLeft']"
-                        @change="e => change(e, 'paddingLeft')"
+                        :value="options['padding-left']"
+                        @change="e => change(e, 'padding-left')"
                       ></a-input>
                     </div>
                     <div class="style-box-body-middle">
@@ -78,8 +78,8 @@
                       <a-input
                         class="style-box-input"
                         size="small"
-                        :value="options['paddingRight']"
-                        @change="e => change(e, 'paddingRight')"
+                        :value="options['padding-right']"
+                        @change="e => change(e, 'padding-right')"
                       ></a-input>
                     </div>
                   </div>
@@ -87,8 +87,8 @@
                     <a-input
                       class="style-box-input"
                       size="small"
-                      :value="options['paddingBottom']"
-                      @change="e => change(e, 'paddingBottom')"
+                      :value="options['padding-bottom']"
+                      @change="e => change(e, 'padding-bottom')"
                     ></a-input>
                   </div>
                 </div>
@@ -98,8 +98,8 @@
                 <a-input
                   class="style-box-input"
                   size="small"
-                  :value="options['borderRight']"
-                  @change="e => change(e, 'borderRight')"
+                  :value="options['border-right']"
+                  @change="e => change(e, 'border-right')"
                 ></a-input>
               </div>
             </div>
@@ -107,8 +107,8 @@
               <a-input
                 class="style-box-input"
                 size="small"
-                :value="options['borderBottom']"
-                @change="e => change(e, 'borderBottom')"
+                :value="options['borderB-bottom']"
+                @change="e => change(e, 'border-bottom')"
               ></a-input>
             </div>
           </div>
@@ -118,8 +118,8 @@
           <a-input
             class="style-box-input"
             size="small"
-            :value="options['marginRight']"
-            @change="e => change(e, 'marginRight')"
+            :value="options['margin-right']"
+            @change="e => change(e, 'margin-right')"
           ></a-input>
         </div>
       </div>
@@ -127,8 +127,8 @@
         <a-input
           class="style-box-input"
           size="small"
-          :value="options['marginBottom']"
-          @change="e => change(e, 'marginBottom')"
+          :value="options['margin-bottom']"
+          @change="e => change(e, 'margin-bottom')"
         ></a-input>
       </div>
     </div>
@@ -146,18 +146,18 @@ export default class CommonStyleBox extends Vue {
   @Prop({
     default: () => {
       return {
-        marginTop: 0,
-        marginRight: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        borderTop: 0,
-        borderRight: 0,
-        borderBottom: 0,
-        borderLeft: 0,
-        paddingTop: 0,
-        paddingRight: 0,
-        paddingBottom: 0,
-        paddingLeft: 0
+        'margin-top': 0,
+        'margin-right': 0,
+        'margin-bottom': 0,
+        'margin-left': 0,
+        'border-top': 0,
+        'border-right': 0,
+        'border-bottom': 0,
+        'border-left': 0,
+        'padding-top': 0,
+        'padding-right': 0,
+        'padding-bottom': 0,
+        'padding-left': 0
       }
     }
   })
