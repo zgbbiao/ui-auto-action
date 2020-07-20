@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-10 17:16:20
- * @LastEditTime: 2020-07-20 16:42:01
+ * @LastEditTime: 2020-07-20 19:36:00
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -47,7 +47,17 @@
               {
                 iconName: 'edit',
                 text: '编辑',
-                click: this.handleEdit
+                click: handleEdit
+              },
+              {
+                iconName: 'view',
+                text: '查看',
+                click: handleEdit
+              },
+              {
+                iconName: 'delete',
+                text: '删除',
+                click: handleEdit
               }
             ]"
             :scope="scope"
@@ -118,7 +128,12 @@ export default {
         leftSpan: 24,
         rightSpan: 24
       },
-      tableData: []
+      tableData: [
+        {
+          className: 'active',
+          desc: '激活中'
+        }
+      ]
     }
   },
   computed: {
@@ -166,6 +181,7 @@ export default {
     searchList() {
       return [
         {
+          label: '类名称',
           type: 'input-search',
           prop: 'className',
           placeholder: '请输入类名称',
@@ -187,6 +203,7 @@ export default {
           }
         },
         {
+          label: '功能描述',
           type: 'input-search',
           prop: 'desc',
           placeholder: '请输入功能描述',
