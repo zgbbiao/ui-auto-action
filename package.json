@@ -15,6 +15,8 @@
     "babel-polyfill": "^6.26.0",
     "codemirror": "^5.55.0",
     "core-js": "^3.6.5",
+    "form-table": "^1.0.7",
+    "page-table": "^1.0.5",
     "vue": "^2.6.11",
     "vue-contextmenu": "^1.5.10",
     "vue-router": "^3.2.0",

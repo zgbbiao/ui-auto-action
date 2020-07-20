@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-19 18:12:24
+ * @LastEditTime: 2020-07-20 15:54:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -48,13 +48,18 @@
         >
       </template>
     </CommonPageForm>
-    <addComponent :visible="addComponentVisible"></addComponent>
+    <!-- <addComponent :visible="addComponentVisible"></addComponent> -->
+    <selectListComponent
+      :visible="addComponentVisible"
+      title="选择应用"
+    ></selectListComponent>
   </div>
 </template>
 
 <script>
 import CommonPageForm from 'page-form'
-import addComponent from './add.vue'
+// import addComponent from './add.vue'
+import selectListComponent from './select-list.vue'
 // import inputSelect from '@/components/input-select/_base.vue'
 import dict from '@/dict/index.js'
 // import { cssStyle2DomStyle } from '@/utils/index.js'
@@ -62,7 +67,8 @@ import lodash from 'lodash'
 export default {
   components: {
     CommonPageForm,
-    addComponent
+    // addComponent,
+    selectListComponent
     // inputSelect
   },
   data() {
