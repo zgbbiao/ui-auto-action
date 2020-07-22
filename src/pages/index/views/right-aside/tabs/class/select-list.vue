@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-10 17:16:20
- * @LastEditTime: 2020-07-20 19:36:00
+ * @LastEditTime: 2020-07-22 01:28:01
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -64,7 +64,7 @@
           ></pageTableAction>
         </template>
         <template v-slot:table-header-top>
-          <div class="table-header-top">
+          <div class="table-header-top clearfix">
             <div>
               <span>已选择</span>
               <span class="selected-num">
@@ -82,6 +82,9 @@
               >
                 取消选择
               </span>
+              <div class="table-header-top-right">
+                <a-button size="small" type="primary">新增</a-button>
+              </div>
             </div>
           </div>
         </template>
@@ -267,3 +270,8 @@ export default {
   }
 }
 </script>
+<style>
+.table-header-top-right {
+  float: right;
+}
+</style>
