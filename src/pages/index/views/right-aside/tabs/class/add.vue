@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-19 19:27:59
+ * @LastEditTime: 2020-07-23 01:29:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -60,22 +60,33 @@ export default {
     title: {
       type: String,
       default: '新增样式'
+    },
+    addFormData: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   data() {
     return {
       formLayout: 'horizontal',
       form: this.$form.createForm(this, { name: 'coordinated' }),
-      rules: {},
-      formData: {
-        display: 'inline-block',
-        'justify-content': 'flex-end',
-        'align-items': 'flex-start',
-        height: '100px',
-        width: '30px',
-        'margin-top': '10px',
-        'padding-bottom': '20px'
+      rules: {
+        className: [
+          {
+            required: true,
+            message: '请输入类名称'
+          }
+        ],
+        textarea: [
+          {
+            required: true,
+            message: '请输入功能描述'
+          }
+        ]
       },
+      formData: {},
       mardomUpdate: '',
       formItemLayout: {
         labelCol: {
@@ -103,21 +114,47 @@ export default {
         this.$emit('change', obj)
       }, 100),
       deep: true
+    },
+    addFormData: {
+      handler: lodash.throttle(function(newValue) {
+        this.$nextTick(() => {
+          this.reset()
+          this.setFieldsValue(newValue)
+        })
+      }, 100),
+      deep: true
     }
   },
   computed: {
     formList() {
-      return dict.styles
-        .map(item => {
-          return {
-            label: item.desc,
-            dom: item.list ? 'input-select' : 'input',
-            prop: item.prop,
-            list: item.list,
-            customLabel: true,
-            span: 24
-          }
-        })
+      return [
+        {
+          label: '类名称',
+          dom: 'input',
+          prop: 'className',
+          customLabel: false,
+          span: 24
+        },
+        {
+          label: '功能描述',
+          dom: 'textarea',
+          prop: 'desc',
+          customLabel: true,
+          span: 24
+        }
+      ]
+        .concat(
+          dict.styles.map(item => {
+            return {
+              label: item.desc,
+              dom: item.list ? 'input-select' : 'input',
+              prop: item.prop,
+              list: item.list,
+              customLabel: true,
+              span: 24
+            }
+          })
+        )
         .concat([
           {
             label: '边距',
@@ -211,8 +248,13 @@ export default {
       this.formData = obj
       this.$refs.CommonPageForm.setFieldsValue(obj)
     },
-    handleOk(values) {
-      this.$emit('ok', values)
+    handleOk() {
+      this.$refs.CommonPageForm.handleOk((err, values) => {
+        console.log(err, values)
+        if (!err) {
+          this.$emit('ok', this.formData)
+        }
+      })
     },
     handleCancel() {
       this.$emit('close')

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-02 15:57:41
- * @LastEditTime: 2020-07-18 11:23:15
+ * @LastEditTime: 2020-07-22 21:28:00
  * @LastEditors: Please set LastEditors
  */
 export interface State {
@@ -20,6 +20,7 @@ export interface State {
   compomentUpdateTime: any
   componentCountId: any
   isPreview: boolean
+  globalClassList: Array<any>
   // total: number;
   // isLogin: boolean;
   // postList: object[];
@@ -147,7 +148,8 @@ export const state: State = {
   tagKeyNewSelect: '',
   compomentUpdateTime: 0,
   componentCountId: 1,
-  isPreview: false
+  isPreview: false,
+  globalClassList: []
 }
 
 export default state

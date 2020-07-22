@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-10 17:16:20
- * @LastEditTime: 2020-07-22 01:28:01
+ * @LastEditTime: 2020-07-23 01:43:19
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -43,24 +43,9 @@
             >编辑</a
           > -->
           <pageTableAction
-            :operateArr="[
-              {
-                iconName: 'edit',
-                text: '编辑',
-                click: handleEdit
-              },
-              {
-                iconName: 'view',
-                text: '查看',
-                click: handleEdit
-              },
-              {
-                iconName: 'delete',
-                text: '删除',
-                click: handleEdit
-              }
-            ]"
+            :operateArr="operateArr"
             :scope="scope"
+            @click="handleClick"
           ></pageTableAction>
         </template>
         <template v-slot:table-header-top>
@@ -82,14 +67,23 @@
               >
                 取消选择
               </span>
-              <div class="table-header-top-right">
-                <a-button size="small" type="primary">新增</a-button>
-              </div>
+            </div>
+            <div class="table-header-top-right">
+              <a-button type="primary" icon="plus" @click="handleAddShow({})"
+                >新增</a-button
+              >
             </div>
           </div>
         </template>
       </CommonPageTable>
-      <router-view></router-view>
+      <addComponent
+        :visible="addVisible"
+        :title="addTitle"
+        :addFormData="addFormData"
+        @change="handleStyleChange"
+        @close="handleAddClose"
+        @ok="handleAddOk"
+      ></addComponent>
     </div>
   </a-modal>
 </template>
@@ -98,9 +92,11 @@ import CommonPageTable from 'page-table'
 import { mapState, mapActions } from 'vuex'
 import tableCheckboxMixins from 'page-table/tableCheckbox.js'
 import pageTableAction from 'page-table/action.vue'
+import addComponent from './add.vue'
+import addMixins from './add-mixins.js'
 export default {
-  mixins: [tableCheckboxMixins],
-  components: { CommonPageTable, pageTableAction },
+  mixins: [tableCheckboxMixins, addMixins],
+  components: { CommonPageTable, pageTableAction, addComponent },
   props: {
     title: {
       type: String,
@@ -131,16 +127,12 @@ export default {
         leftSpan: 24,
         rightSpan: 24
       },
-      tableData: [
-        {
-          className: 'active',
-          desc: '激活中'
-        }
-      ]
+      tableData: [],
+      operateArr: []
     }
   },
   computed: {
-    ...mapState('index', []),
+    ...mapState('index', ['globalClassList']),
     columns() {
       return [
         {
@@ -233,12 +225,65 @@ export default {
   created() {
     this.init()
   },
+  mounted() {
+    const handleEdit = this.handleEdit
+    const handleDelete = this.handleDelete
+    this.operateArr = [
+      {
+        iconName: 'edit',
+        text: '编辑',
+        df: 'dsf',
+        click: handleEdit
+      },
+      // {
+      //   iconName: 'view',
+      //   text: '查看',
+      //   click: handleEdit
+      // },
+      {
+        iconName: 'delete',
+        text: '删除',
+        click: handleDelete
+      }
+    ]
+    console.log(this.operateArr)
+  },
   methods: {
     ...mapActions('index', []),
     getData() {
-      console.log('getData')
+      console.log('getData', this.globalClassList)
+      const page = this.pagination.current - 1
+      const pageSize = this.pagination.pageSize
+      const totalData = this.globalClassList.filter(item => {
+        if (this.searchData.className && !this.searchData.desc) {
+          if (!item.className) {
+            return false
+          }
+          return item.className.indexOf(this.searchData.className) !== -1
+        } else if (!this.searchData.className && this.searchData.desc) {
+          if (!item.desc) {
+            return false
+          }
+          return item.desc.indexOf(this.searchData.desc) !== -1
+        } else if (this.searchData.className && this.searchData.desc) {
+          if (!item.desc || !item.className) {
+            return false
+          }
+          return (
+            item.desc.indexOf(this.searchData.desc) !== -1 &&
+            item.className.indexOf(this.searchData.className) !== -1
+          )
+        }
+        return true
+      })
+      this.tableData = totalData.slice(
+        page * pageSize,
+        page * pageSize + pageSize
+      )
+      this.pagination.total = totalData.length
     },
     init() {
+      this.pagination.current = 1
       this.getData()
     },
     handlePaginationChange(pagination) {
@@ -246,6 +291,18 @@ export default {
       this.getData()
     },
     async handleEdit(row) {
+      this.handleAddShow(row)
+      console.log('handleEdit')
+    },
+    handleDelete(row) {
+      this.setUpdate({
+        path: 'globalClassList',
+        data: val => {
+          return val.filter(item => {
+            return item.className !== row.className
+          })
+        }
+      })
       console.log('handleEdit')
     },
     handleSearch() {
@@ -266,6 +323,14 @@ export default {
         desc: ''
       })
       this.handleSearch()
+    },
+    handleClick(item, scope) {
+      console.log(item, scope, item.iconName, item.iconName === 'edit')
+      if (['edit', 'editActive'].includes(item.iconName)) {
+        this.handleEdit(scope.row)
+      } else if (['delete', 'deleteActive'].includes(item.iconName)) {
+        this.handleDelete(scope.row)
+      }
     }
   }
 }
@@ -273,5 +338,12 @@ export default {
 <style>
 .table-header-top-right {
   float: right;
+}
+.selected-cancel {
+  border: 1px solid #ccc;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px;
 }
 </style>

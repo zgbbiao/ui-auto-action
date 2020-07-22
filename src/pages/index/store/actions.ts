@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 19:09:59
- * @LastEditTime: 2020-07-18 11:15:22
+ * @LastEditTime: 2020-07-22 22:33:19
  * @LastEditors: Please set LastEditors
  */
 import { Commit } from 'vuex';
@@ -39,5 +39,14 @@ export default {
   setPreview(context: { commit: Commit }, params: any) {
     context.commit(types.SET_PREVIEW, params);
   },
+  setAdd(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_ADD, params);
+  },
+  setDelete(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_DELETE, params);
+  },
+  setUpdate(context: { commit: Commit }, params: any) {
+    context.commit(types.SET_UPDATE, params);
+  }
 }
 
