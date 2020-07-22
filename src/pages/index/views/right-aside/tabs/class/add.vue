@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-19 19:27:59
+ * @LastEditTime: 2020-07-22 11:15:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -211,8 +211,11 @@ export default {
       this.formData = obj
       this.$refs.CommonPageForm.setFieldsValue(obj)
     },
-    handleOk(values) {
-      this.$emit('ok', values)
+    handleOk() {
+      // this.$refs.CommonPageForm.handleOk((...args) => {
+      //   console.log(args, 'res')
+      // })
+      this.$emit('ok', this.formData)
     },
     handleCancel() {
       this.$emit('close')

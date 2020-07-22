@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-10 17:16:20
- * @LastEditTime: 2020-07-20 19:36:00
+ * @LastEditTime: 2020-07-22 11:17:29
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -83,10 +83,19 @@
                 取消选择
               </span>
             </div>
+            <div class="table-header-top-right">
+              <a-button type="primary" icon="plus" @click="handleAddShow"
+                >新增</a-button
+              >
+            </div>
           </div>
         </template>
       </CommonPageTable>
-      <router-view></router-view>
+      <addComponent
+        :visible="addVisible"
+        @change="handleStyleChange"
+        @close="handleAddClose"
+      ></addComponent>
     </div>
   </a-modal>
 </template>
@@ -95,9 +104,11 @@ import CommonPageTable from 'page-table'
 import { mapState, mapActions } from 'vuex'
 import tableCheckboxMixins from 'page-table/tableCheckbox.js'
 import pageTableAction from 'page-table/action.vue'
+import addComponent from './add.vue'
+import addMixins from './add-mixins.js'
 export default {
-  mixins: [tableCheckboxMixins],
-  components: { CommonPageTable, pageTableAction },
+  mixins: [tableCheckboxMixins, addMixins],
+  components: { CommonPageTable, pageTableAction, addComponent },
   props: {
     title: {
       type: String,
@@ -267,3 +278,15 @@ export default {
   }
 }
 </script>
+<style>
+.table-header-top-right {
+  float: right;
+}
+.selected-cancel {
+  border: 1px solid #ccc;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+</style>

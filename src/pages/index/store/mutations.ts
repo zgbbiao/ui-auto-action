@@ -2,11 +2,12 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 18:26:19
- * @LastEditTime: 2020-07-18 11:19:17
+ * @LastEditTime: 2020-07-22 11:53:16
  * @LastEditors: Please set LastEditors
  */
 import types from './mutation-types'
 import { State } from './state'
+import lodash from 'lodash'
 export default {
   // 左侧展开项
   [types.SET_COLLAPSE_ACTIVE_KEY_LEFT_ASIDE](state: State, data: any) {
@@ -42,4 +43,50 @@ export default {
   [types.SET_PREVIEW](state: State, data: any) {
     state.isPreview = data
   }
+
+
+
+  // 增删改查
+  /*
+  [types.SET_ADD](state: State, data: any) {
+    if (!data || !data.path) {
+      throw new Error('SET_ADD-->data.path is undefined');
+      return false
+    }
+    // 参数示例
+    // data = {
+    //   path: 'a[0].b.c'，
+    //   data: '4'
+    // }
+    // lodash.set(state, 'a[0].b.c', 4)
+    lodash.set(state, data.path, data.data)
+  },
+  [types.SET_DELETE](state: State, data: any) {
+    if (!data || !data.path) {
+      throw new Error('SET_DELETE-->data.path is undefined');
+      return false
+    }
+    lodash.unset(state, data.path)
+  },
+  [types.SET_UPDATE](state: State, data: any) {
+    if (!data || !data.path) {
+      throw new Error('SET_UPDATE-->data.path is undefined');
+      return false
+    }
+    let fn = null
+    if (typeof data.data === 'function') {
+      fn = data.data
+    } else {
+      fn = () => { return data.data }
+    }
+    lodash.update(state, data.path, fn)
+  }
+  [types.SET_GET](state: State, data: any) {
+    if (!data || !data.path) {
+      throw new Error('SET_GET-->data.path is undefined');
+      return false
+    }
+    lodash.get(state, data.path)
+  }
+  */
 }
