@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-22 10:56:57
- * @LastEditTime: 2020-07-23 01:31:15
+ * @LastEditTime: 2020-07-23 01:50:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\right-aside\tabs\class\addMixins.js
@@ -34,10 +34,23 @@ export default {
       // const arr = this.setGet({
       //   path: 'globalClassList'
       // })
-      this.setAdd({
-        path: 'globalClassList',
-        data: data
-      })
+      if (
+        !this.globalClassList.find(item => item.className === data.className)
+      ) {
+        this.setAdd({
+          path: 'globalClassList',
+          data: data
+        })
+      } else {
+        this.setUpdate({
+          path: 'globalClassList',
+          data: val => {
+            return val.map(item => {
+              return item.className === data.className ? data : item
+            })
+          }
+        })
+      }
       this.handleAddClose()
       this.init()
     },

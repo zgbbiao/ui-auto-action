@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-20 15:54:10
+ * @LastEditTime: 2020-07-23 02:14:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -52,6 +52,8 @@
     <selectListComponent
       :visible="addComponentVisible"
       title="选择应用"
+      @ok="handleselectListComponentOk"
+      @close="handleselectListComponentClose"
     ></selectListComponent>
   </div>
 </template>
@@ -88,7 +90,8 @@ export default {
           sm: { span: 24 }
         }
       },
-      addComponentVisible: false
+      addComponentVisible: false,
+      selectClassList: []
       // lodash
     }
   },
@@ -108,6 +111,7 @@ export default {
   },
   computed: {
     formList() {
+      const selectClassList = this.selectClassList
       return [
         {
           label: '选择添加类名',
@@ -123,15 +127,11 @@ export default {
           },
           listeners: {
             change: value => {
+              console.log(value)
               // this.handleResourceTypeChange(value)
             }
           },
-          list: [
-            {
-              label: 'bold',
-              value: 'bold'
-            }
-          ],
+          list: selectClassList,
           span: 24
         }
       ]
@@ -154,6 +154,36 @@ export default {
     setFieldsValue(obj) {
       this.formData = obj
       this.$refs.CommonPageForm.setFieldsValue(obj)
+    },
+    handleselectListComponentOk(list) {
+      if (!Array.isArray(this.formData.classList)) {
+        this.formData.classList = []
+      }
+      this.selectClassList.push(
+        ...list.map(item => {
+          return {
+            ...item,
+            label: item.desc,
+            value: item.className
+          }
+        })
+      )
+      // this.formData.classList.push(...list.map(item => item.className))
+      this.formData.classList.push(
+        ...list.map(item => {
+          return {
+            key: item.className,
+            title: item.desc
+          }
+        })
+      )
+      this.formData.classList = lodash.uniqBy(this.formData.classList, 'key')
+      this.selectClassList = lodash.uniqBy(this.selectClassList, 'value')
+      this.setFieldsValue(this.formData)
+      this.handleselectListComponentClose()
+    },
+    handleselectListComponentClose() {
+      this.addComponentVisible = false
     }
   }
 }

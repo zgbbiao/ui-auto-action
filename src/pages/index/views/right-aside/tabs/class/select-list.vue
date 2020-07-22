@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-10 17:16:20
- * @LastEditTime: 2020-07-23 01:43:19
+ * @LastEditTime: 2020-07-23 02:02:22
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,8 +16,14 @@
     @cancel="handleClose"
   >
     <template slot="footer">
-      <!-- <a-button key="submit" type="primary" @click="handleOk">返回</a-button> -->
-      <!-- <a-button key="back" @click="handleClose">取消</a-button> -->
+      <a-button
+        key="submit"
+        type="primary"
+        @click="handleOk"
+        :disabled="isOkDisabled"
+        >保存</a-button
+      >
+      <a-button key="back" @click="handleClose">取消</a-button>
       <span></span>
     </template>
     <div style="margin: -24px;">
@@ -128,7 +134,8 @@ export default {
         rightSpan: 24
       },
       tableData: [],
-      operateArr: []
+      operateArr: [],
+      isOkDisabled: true
     }
   },
   computed: {
@@ -222,6 +229,11 @@ export default {
       ]
     }
   },
+  watch: {
+    rowSelectionOptions() {
+      this.isOkDisabled = !this.getCheckboxAll().length
+    }
+  },
   created() {
     this.init()
   },
@@ -303,6 +315,7 @@ export default {
           })
         }
       })
+      this.init()
       console.log('handleEdit')
     },
     handleSearch() {
@@ -313,7 +326,8 @@ export default {
       this.$emit('close')
     },
     handleOk() {
-      this.$emit('ok')
+      console.log(this.getCheckboxAll())
+      this.$emit('ok', this.getCheckboxAll())
     },
     handleResetSearch() {
       this.pagination.current = 1
