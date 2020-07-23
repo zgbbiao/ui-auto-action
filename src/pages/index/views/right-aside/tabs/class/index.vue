@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-24 00:05:48
+ * @LastEditTime: 2020-07-24 01:15:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -215,13 +215,9 @@ export default {
       this.addComponentVisible = false
     },
     setGlobalCss(list) {
-      let style = document.querySelector('#globalcssStyle')
-      if (!style) {
-        style = document.createElement('style')
-        style.type = 'text/css'
-        style.id = 'globalcssStyle'
-        document.body.appendChild(style)
-      }
+      const style = document.createElement('style')
+      style.type = 'text/css'
+      document.body.appendChild(style)
       style.innerHTML = list
         .map(item => {
           const obj = JSON.parse(JSON.stringify(item))
