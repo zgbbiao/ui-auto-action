@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-17 15:52:38
+ * @LastEditTime: 2020-07-23 21:33:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -13,6 +13,7 @@
     :value="tasks"
     :component-data="getComponentData"
     :style="getComponentData.style || {}"
+    :class="getComponentData.class || {}"
     @input="handleInput"
     :group="{ name: 'form-draggable' }"
     :options="{

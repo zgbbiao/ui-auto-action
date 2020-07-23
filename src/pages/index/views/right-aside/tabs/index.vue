@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-19 00:56:24
+ * @LastEditTime: 2020-07-23 23:47:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -99,6 +99,7 @@ export default class PageIndexRightAside extends Vue {
   reset() {
     this.$refs.styleComponent[0]['reset']()
     this.$refs.LabelComponent[0]['reset']()
+    this.$refs.classComponent[0]['reset']()
     // this['setTagPanelCurSelectOptions']({
     //   style: this['curPanelSelectTag'].options.style,
     //   domProps: this['curPanelSelectTag'].options.domProps
@@ -107,6 +108,9 @@ export default class PageIndexRightAside extends Vue {
       console.log(this['curPanelSelectTag'].options)
       this.$refs.styleComponent[0]['setFieldsValue'](
         this['curPanelSelectTag'].options.style || {}
+      )
+      this.$refs.classComponent[0]['setDefaultValue'](
+        this['curPanelSelectTag'].options.selectClassList || []
       )
       this.$refs.LabelComponent[0]['setFieldsValue']({
         text: (this['curPanelSelectTag'].options.domProps || {}).innerText

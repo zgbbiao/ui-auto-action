@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-09 22:30:53
- * @LastEditTime: 2020-07-23 02:14:28
+ * @LastEditTime: 2020-07-24 00:05:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \ui-auto-action\src\pages\index\views\right-aside\tabs\label.vue
@@ -66,6 +66,7 @@ import selectListComponent from './select-list.vue'
 import dict from '@/dict/index.js'
 // import { cssStyle2DomStyle } from '@/utils/index.js'
 import lodash from 'lodash'
+import { mapActions } from 'vuex'
 export default {
   components: {
     CommonPageForm,
@@ -138,6 +139,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('index', ['setTagPanelCurSelectOptions']),
     handleFormInput: lodash.throttle(function(value) {
       const formData = JSON.parse(JSON.stringify(this.formData))
       for (const key in value) {
@@ -146,6 +148,7 @@ export default {
         }
       }
       this.$set(this, 'formData', JSON.parse(JSON.stringify(formData)))
+      // this.setTagClass()
     }, 300),
     reset() {
       this.formData = {}
@@ -180,10 +183,63 @@ export default {
       this.formData.classList = lodash.uniqBy(this.formData.classList, 'key')
       this.selectClassList = lodash.uniqBy(this.selectClassList, 'value')
       this.setFieldsValue(this.formData)
+      this.setTagClass()
+    },
+    setDefaultValue(selectClassList) {
+      console.log(selectClassList)
+      this.selectClassList = selectClassList
+      this.formData.classList = selectClassList.map(item => {
+        return {
+          label: item.desc,
+          value: item.className
+        }
+      })
+      this.setFieldsValue(this.formData)
+    },
+    setTagClass() {
+      if (!Array.isArray(this.formData.classList)) {
+        this.formData.classList = []
+      }
+      const obj = {}
+      this.formData.classList.forEach(item => {
+        obj[item.key] = true
+      })
+      this.setTagPanelCurSelectOptions({
+        class: obj,
+        selectClassList: this.selectClassList
+      })
+      this.setGlobalCss(this.selectClassList)
       this.handleselectListComponentClose()
     },
     handleselectListComponentClose() {
       this.addComponentVisible = false
+    },
+    setGlobalCss(list) {
+      let style = document.querySelector('#globalcssStyle')
+      if (!style) {
+        style = document.createElement('style')
+        style.type = 'text/css'
+        style.id = 'globalcssStyle'
+        document.body.appendChild(style)
+      }
+      style.innerHTML = list
+        .map(item => {
+          const obj = JSON.parse(JSON.stringify(item))
+          delete obj.className
+          delete obj.desc
+          delete obj.label
+          delete obj.value
+          let str = ''
+          for (const key in obj) {
+            str += `${key}: ${obj[key]};`
+          }
+          return `
+          .${item.value} {
+            ${str}
+          }
+          `
+        })
+        .join('')
     }
   }
 }

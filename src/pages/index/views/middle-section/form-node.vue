@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-08 17:37:17
- * @LastEditTime: 2020-07-18 12:06:24
+ * @LastEditTime: 2020-07-23 23:03:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \auto-ant-vue2\src\pages\index\views\index\index.vue
@@ -102,6 +102,7 @@ export default class PageIndexFormNode extends Vue {
   @Prop({ default: {} })
   record: any
   handleSelectItem() {
+    console.log(this['record'])
     this['setTagPanelCurSelect'](this['record'])
   }
   get recordoptions() {

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 18:26:19
- * @LastEditTime: 2020-07-22 22:45:25
+ * @LastEditTime: 2020-07-23 21:29:38
  * @LastEditors: Please set LastEditors
  */
 import types from './mutation-types'
@@ -24,6 +24,7 @@ export default {
   [types.SET_TAG_PANEL_CUR_SELECT_OPTIONS](state: State, data: object) {
     const options = state.curPanelSelectTag['options'] || {}
     state.curPanelSelectTag['options'] = Object.assign({}, options, data)
+    console.log(state.curPanelSelectTag)
   },
   // 中间的标签列表
   [types.SET_TAG_SELECTED_LIST](state: State, data: any) {
